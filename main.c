@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/02/28 20:32:47 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/02/28 20:50:32 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_mlx			*initialize_mlx_struct(void)
 	mlx->mouse_y = 0;
 	mlx->mouse_pressed = 0;
 	mlx->zoom = 1;
+	mlx->zooming = 1;
 	mlx->iter = MAX_ITER;
 	return (mlx);
 }
@@ -46,10 +47,10 @@ int				deal_key(int key, void *param)
 	// 	mlx->x_offset -= OFFSET_AMOUNT;
 	// else if (key == RIGHT_ARROW)
 	// 	mlx->x_offset += OFFSET_AMOUNT;
-	// else if (key == Q)
-	// 	mlx->pitch -= PITCH_CHANGE_AMOUNT;
-	// else if (key == W)
-	// 	mlx->pitch += PITCH_CHANGE_AMOUNT;
+	else if (key == Q && mlx->iter > 0)
+		mlx->iter -= 1;
+	else if (key == W)
+		mlx->iter += 1;
 	mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	return (0);
 }

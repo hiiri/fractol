@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/02/28 20:32:54 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/02/28 20:46:04 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	mandelbrot(t_mlx *mlx, int px, int py)
 			iter = 0;
 			while (x*x + y*y <= 4 && iter < mlx->iter)
 			{
-				x_temp = x*x - y*y + xy_scaled[0];
-				y = 2*x*y + xy_scaled[1];
+				x_temp = (x*x - y*y + xy_scaled[0]) * mlx->zooming;
+				y = (2*x*y + xy_scaled[1]) * mlx->zooming;
 				x = x_temp;
 				iter++;
 			}

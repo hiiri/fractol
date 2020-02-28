@@ -6,12 +6,12 @@
 #    By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 20:45:50 by alcohen           #+#    #+#              #
-#    Updated: 2020/02/28 18:37:53 by alcohen          ###   ########.fr        #
+#    Updated: 2020/02/28 20:39:13 by alcohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FLAGS = -Wall -Wextra -Werror
-NAME = fdf
+NAME = fractol
 
 MAIN = main.c
 SRCS = $(MAIN) draw.c handle_mouse.c

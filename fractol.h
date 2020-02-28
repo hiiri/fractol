@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/02/28 20:26:38 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/02/28 20:45:26 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_mlx
 	void	*init;
 	void	*window;
 	double	zoom;
+	double	zooming;
 	int		color;
 	int		mouse_x;
 	int		mouse_y;
