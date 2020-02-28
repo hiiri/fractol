@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/02/28 20:24:46 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/02/28 20:32:47 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int				deal_key(int key, void *param)
 	if (key == 53)
 		exit(0);
 	if (key == UP_ARROW)
-	 	mlx->zoom += 0.05;
+	 	mlx->zoom += 0.01;
 	else if (key == DOWN_ARROW)
-		mlx->zoom -= 0.05;
+		mlx->zoom -= 0.01;
 	// else if (key == LEFT_ARROW)
 	// 	mlx->x_offset -= OFFSET_AMOUNT;
 	// else if (key == RIGHT_ARROW)

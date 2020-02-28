@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/02/28 20:22:59 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/02/28 20:32:54 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,17 @@ void	mandelbrot(t_mlx *mlx, int px, int py)
 			x2 = 0.0;
 			y2 = 0.0;
 			iter = 0;
-			while (x2 + y2 <= 4 && iter < mlx->iter)
+			while (x*x + y*y <= 4 && iter < mlx->iter)
 			{
-				x = x2 - y2 + xy_scaled[0];
-				y = 2 * x * y + xy_scaled[1];
-				x2 = x * x;
-				y2 = y * y;
+				x_temp = x*x - y*y + xy_scaled[0];
+				y = 2*x*y + xy_scaled[1];
+				x = x_temp;
 				iter++;
 			}
 			if (iter == mlx->iter)
-				color = 0x00F0F * iter;
+				color = 0;
 			else
 				color = (0x00F0F * iter);
-			// while (x*x + y*y <= 4 && iter < mlx->iter)
-			// {
-			// 	x_temp = x*x - y*y + xy_scaled[0];
-			// 	y = 2*x*y + xy_scaled[1];
-			// 	x = x_temp;
-			// 	iter++;
-			// }
-
 			mlx_pixel_put(mlx, mlx->window, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}
