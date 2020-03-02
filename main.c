@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/03/02 17:19:25 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/03/02 19:58:31 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ t_mlx			*initialize_mlx_struct(void)
 		handle_error(ERROR_MALLOC);
 	mlx->height = WINDOW_HEIGHT;
 	mlx->width = WINDOW_WIDTH;
-	mlx->zoom = ZOOM;
 	mlx->color = DEFAULT_COLOR;
 	mlx->mouse_x = 0;
 	mlx->mouse_y = 0;
 	mlx->mouse_pressed = 0;
-	mlx->zoom = 1;
-	mlx->zooming = 1;
+	mlx->zoom = 1.0;
+	mlx->offset[0] = 0.0;
+	mlx->offset[1] = 0.0;
 	mlx->iter = MAX_ITER;
 	return (mlx);
 }
@@ -56,9 +56,9 @@ int				deal_key(int key, void *param)
 	if (key == 53)
 		exit(0);
 	if (key == UP_ARROW)
-	 	mlx->zoom += 0.01;
+	 	mlx->offset[0] += 0.01;
 	else if (key == DOWN_ARROW)
-		mlx->zoom -= 0.01;
+		mlx->offset[0] -= 0.01;
 	// else if (key == LEFT_ARROW)
 	// 	mlx->x_offset -= OFFSET_AMOUNT;
 	// else if (key == RIGHT_ARROW)
@@ -99,8 +99,8 @@ int				main(int argc, char **argv)
 	mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
 	mlx_hook(mlx->window, 2, 0, deal_key, mlx);
 	mlx_hook(mlx->window, 4, 0, mouse_event, mlx);
-	// mlx_hook(mlx->window, 5, 0, mouse_release, mlx);
-	// mlx_hook(mlx->window, 6, 0, mouse_move, mlx);
+	mlx_hook(mlx->window, 5, 0, mouse_release, mlx);
+	mlx_hook(mlx->window, 6, 0, mouse_move, mlx);
 	handle_drawing(mlx);
 	mlx_loop(mlx->init);
 	return (0);

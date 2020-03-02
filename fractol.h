@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/03/02 17:14:20 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/03/02 19:35:30 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 667
-# define ZOOM 5
+# define ZOOM_AMOUNT 0.01
 # define DEFAULT_COLOR 0xFFFFFF
 # define UP_ARROW 126
 # define DOWN_ARROW 125
@@ -34,6 +34,7 @@
 # define ERROR_MALLOC 2
 # define ERROR_READING_FILE 3
 # define MAX_ITER 20
+# define MOUSE_ZOOM 5000
 
 typedef struct s_image
 {
@@ -48,18 +49,22 @@ typedef struct s_image
 
 typedef struct	s_mlx
 {
-	int		height;
-	int		width;
-	void	*init;
-	void	*window;
-	double	zoom;
-	double	zooming;
-	int		color;
-	int		mouse_x;
-	int		mouse_y;
-	int		mouse_pressed;
-	int		iter;
-	t_image	*image;
+	int			height;
+	int			width;
+	void		*init;
+	void		*window;
+	long double	zoom;
+	long double	offset[2];
+	int			color;
+	int			mouse_x;
+	int			mouse_y;
+	int			mouse_pressed;
+	int			iter;
+	long double	num1;
+	long double	num2;
+	long double	num3;
+	long double	num4;
+	t_image		*image;
 }				t_mlx;
 
 t_mlx			*initialize_mlx_struct(void);

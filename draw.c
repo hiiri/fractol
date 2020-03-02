@@ -6,16 +6,16 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/03/02 17:20:09 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/03/02 20:04:36 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "fractol.h"
 
-double	scale(int in_range[2], double out_range[2])
+long double	scale(int in_range[2], long double out_range[2])
 {
-	double	slope;
+	long double	slope;
 
 	slope = 1.0 * (out_range[1] - out_range[0]) / (in_range[1] - in_range[0]);
 	return (slope);
@@ -37,23 +37,25 @@ void			handle_drawing(t_mlx *mlx)
 
 void	mandelbrot(t_mlx *mlx, int px, int py)
 {
-	double	xy_scaled[2];
+	long double	xy_scaled[2];
 	int		iter;
-	double	x_temp;
 	int		xy_loop[2];
-	double	x;
-	double	y;
-	double	slope[2];
-	int color = 0xFFFFFF;
-	double x2;
-	double y2;
+	long double	x;
+	long double	y;
+	long double	slope[2];
+	int color;
+	long double x2;
+	long double y2;
+	long double w;
 
-	px += 0;
-	py += 0;
+	mlx->num1 = -2.0;
+	mlx->num2 = 1.0;
+	mlx->num3 = -1.0;
+	mlx->num4 = 1.0;
 	xy_loop[0] = 0;
 	xy_loop[1] = 0;
-	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (double[2]){-2, 1});
-	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (double[2]){-1, 1});
+	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->num1 +, mlx->num2});
+	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (long double[2]){mlx->num3, mlx->num4});
 	while (xy_loop[0] < px)
 	{
 		xy_loop[1] = 0;
@@ -63,17 +65,19 @@ void	mandelbrot(t_mlx *mlx, int px, int py)
 			x = 0.0;
 			y = 0.0;
 			// x loop
-			xy_scaled[0] = mlx->zoom * -3 + slope[0] * (xy_loop[0] - 0);
-			xy_scaled[1] = -1 + slope[1] * (xy_loop[1] - 0);
-			//printf("%f, %f\n", xy_scaled[0], xy_scaled[1]);
+			xy_scaled[0] = slope[0] * (xy_loop[0] - 0)  * mlx->zoom;
+			xy_scaled[1] = slope[1] * (xy_loop[1] - 0) * mlx->zoom;
 			x2 = 0.0;
 			y2 = 0.0;
+			w = 0.0;
 			iter = 0;
-			while (x*x + y*y <= 4 && iter < mlx->iter)
+			while (x2 + y2 <= 4 && iter < mlx->iter)
 			{
-				x_temp = (x*x - y*y + xy_scaled[0]) * mlx->zooming;
-				y = (2*x*y + xy_scaled[1]) * mlx->zooming;
-				x = x_temp;
+				x = (x2 - y2 + xy_scaled[0]);
+				y = (w - x2 - y2 + xy_scaled[1]) ;
+				x2 = x * x;
+				y2 = y * y;
+				w = (x + y) * (x + y);
 				iter++;
 			}
 			if (iter == mlx->iter)
