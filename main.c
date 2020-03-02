@@ -6,12 +6,28 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/02/28 20:50:32 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/03/02 17:19:25 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "fractol.h"
+
+t_image			*initialize_image(t_mlx *mlx)
+{
+	t_image	*image;
+
+	if (!(image = (t_image*)malloc(sizeof(*image))))
+		handle_error(ERROR_MALLOC);
+	image->width = WINDOW_WIDTH;
+	image->height = WINDOW_HEIGHT;
+	image->bpp = 0;
+	image->endian = 0;
+	image->size_line = 0;
+	image->img_ptr = mlx_new_image(mlx->init, image->width, image->height);
+	image->image = mlx_get_data_addr(image->img_ptr, &image->bpp, &image->size_line, &image->endian);
+	return (image);
+}
 
 t_mlx			*initialize_mlx_struct(void)
 {
@@ -51,7 +67,7 @@ int				deal_key(int key, void *param)
 		mlx->iter -= 1;
 	else if (key == W)
 		mlx->iter += 1;
-	mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	handle_drawing(mlx);
 	return (0);
 }
 
@@ -74,14 +90,18 @@ int				main(int argc, char **argv)
 	(void)argc;
 	// if (argc != 2)
 	// 	handle_error(1);
+
 	mlx = initialize_mlx_struct();
 	mlx->init = mlx_init();
+	mlx->image = initialize_image(mlx);
+
+
 	mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
 	mlx_hook(mlx->window, 2, 0, deal_key, mlx);
 	mlx_hook(mlx->window, 4, 0, mouse_event, mlx);
 	// mlx_hook(mlx->window, 5, 0, mouse_release, mlx);
 	// mlx_hook(mlx->window, 6, 0, mouse_move, mlx);
-	mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	handle_drawing(mlx);
 	mlx_loop(mlx->init);
 	return (0);
 }

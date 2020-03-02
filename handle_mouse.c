@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/02/28 20:48:32 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/03/02 17:14:23 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				mouse_event(int button, int x, int y, void *param)
 	{
 		mlx->zooming += 0.01;
 	}
-	mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	handle_drawing(mlx);
 	// if (button == 1)
 	// {
 	// 	mlx->mouse_x = x;

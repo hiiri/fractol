@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/02/28 20:46:04 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/03/02 17:20:09 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ double	scale(int in_range[2], double out_range[2])
 
 	slope = 1.0 * (out_range[1] - out_range[0]) / (in_range[1] - in_range[0]);
 	return (slope);
+}
+
+static void		pixel_to_image(t_image *image, int x, int y, int color)
+{
+	image->image[x * 4 + y * image->size_line] = color;
+	image->image[x * 4 + y * image->size_line + 1] = color;
+	image->image[x * 4 + y * image->size_line + 2] = color;
+}
+
+void			handle_drawing(t_mlx *mlx)
+{
+	//if type == mandelbrot
+	mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
 }
 
 void	mandelbrot(t_mlx *mlx, int px, int py)
@@ -66,7 +80,8 @@ void	mandelbrot(t_mlx *mlx, int px, int py)
 				color = 0;
 			else
 				color = (0x00F0F * iter);
-			mlx_pixel_put(mlx, mlx->window, xy_loop[0], xy_loop[1], color);
+			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
+			//mlx_pixel_put(mlx, mlx->window, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}
 		xy_loop[0]++;
