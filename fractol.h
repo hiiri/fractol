@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/06/01 18:43:25 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/06/01 19:09:22 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@
 # define Q 12
 # define W 13
 
-# define DEFAULT_COLOR 0xFFFFFF
+# define DEFAULT_COLOR 0x0F000F
 # define ERROR_ARGS 1
 # define ERROR_MALLOC 2
 # define ERROR_READING_FILE 3
 # define INIT_OFFSET_X -700
 # define INIT_OFFSET_Y -320
-# define KEYBOARD_OFFSET_AMOUNT 10.0
+# define KEYBOARD_OFFSET_AMOUNT 10
 # define MAX_ITER 20
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 667
@@ -66,7 +66,7 @@ typedef struct	s_mlx
 	void		*init;
 	void		*window;
 	long double	zoom;
-	long double	offset[2];
+	int			offset[2];
 	int			color;
 	int			mouse_x;
 	int			mouse_y;
