@@ -6,14 +6,14 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/03/02 20:04:36 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/06/01 17:03:15 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "fractol.h"
 
-long double	scale(int in_range[2], long double out_range[2])
+long double		scale(int in_range[2], long double out_range[2])
 {
 	long double	slope;
 
@@ -54,7 +54,8 @@ void	mandelbrot(t_mlx *mlx, int px, int py)
 	mlx->num4 = 1.0;
 	xy_loop[0] = 0;
 	xy_loop[1] = 0;
-	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->num1 +, mlx->num2});
+
+	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->num1, mlx->num2});
 	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (long double[2]){mlx->num3, mlx->num4});
 	while (xy_loop[0] < px)
 	{
@@ -65,8 +66,9 @@ void	mandelbrot(t_mlx *mlx, int px, int py)
 			x = 0.0;
 			y = 0.0;
 			// x loop
-			xy_scaled[0] = slope[0] * (xy_loop[0] - 0)  * mlx->zoom;
-			xy_scaled[1] = slope[1] * (xy_loop[1] - 0) * mlx->zoom;
+			// mouse move offset goes in (xy_loop[] + mlx->offset[])
+			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]) * mlx->zoom;
+			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]) * mlx->zoom;
 			x2 = 0.0;
 			y2 = 0.0;
 			w = 0.0;

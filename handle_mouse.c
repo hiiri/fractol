@@ -6,11 +6,13 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/03/02 19:56:53 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/06/01 17:05:25 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <stdio.h> //remove
+
 
 int				mouse_event(int button, int x, int y, void *param)
 {
@@ -21,8 +23,8 @@ int				mouse_event(int button, int x, int y, void *param)
 	{
 		if (mlx->zoom > 0)
 		{
-			long double half = WINDOW_HEIGHT / 2;
-			long double halfx = WINDOW_WIDTH / 2;
+			//long double half = WINDOW_HEIGHT / 2;
+			//long double halfx = WINDOW_WIDTH / 2;
 			mlx->zoom -= ZOOM_AMOUNT;
 			mlx->offset[0] += (x + 50 - WINDOW_WIDTH * 0.75) / 10;
 			mlx->offset[1] += (y - WINDOW_HEIGHT * 0.5) / 10;
@@ -37,12 +39,13 @@ int				mouse_event(int button, int x, int y, void *param)
 	}
 	if (button == 5)
 	{
-		long double half = WINDOW_HEIGHT / 2;
-		long double halfx = WINDOW_WIDTH / 2;
+		//long double half = WINDOW_HEIGHT / 2;
+		//long double halfx = WINDOW_WIDTH / 2;
 		mlx->zoom += ZOOM_AMOUNT;
 		mlx->offset[0] -= ZOOM_AMOUNT;
 		mlx->offset[1] -= ZOOM_AMOUNT;
 	}
+	//this is only to set mouse pressed to 1, mouse move is its own function
 	if (button == 1)
 	{
 		mlx->mouse_x = x;
@@ -83,7 +86,7 @@ int				mouse_move(int x, int y, void *param)
 		}
 	}
 
-	printf("%d %f %Lf\n",mlx->mouse_x, 1.0 * y - mlx->mouse_y, mlx->offset[1]);
+	printf("%d %f Offset X: %Lf Offset y: %Lf\n",mlx->mouse_x, 1.0 * y - mlx->mouse_y, mlx->offset[0], mlx->offset[1]);
 	mlx->mouse_x = x;
 	mlx->mouse_y = y;
 	handle_drawing(mlx);

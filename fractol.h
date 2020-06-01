@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/03/02 19:35:30 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/06/01 17:06:00 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define ERROR_READING_FILE 3
 # define MAX_ITER 20
 # define MOUSE_ZOOM 5000
+# define INIT_OFFSET_X -700
+# define INIT_OFFSET_Y -320
 
 typedef struct s_image
 {
