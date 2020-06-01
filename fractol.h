@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/06/01 17:06:00 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/06/01 18:43:25 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,33 @@
 # include <unistd.h>
 # include <math.h>
 
-# define WINDOW_WIDTH 1000
-# define WINDOW_HEIGHT 667
-# define ZOOM_AMOUNT 0.01
-# define DEFAULT_COLOR 0xFFFFFF
+/*
+** Keys
+*/
 # define UP_ARROW 126
 # define DOWN_ARROW 125
 # define LEFT_ARROW 123
 # define RIGHT_ARROW 124
 # define Q 12
 # define W 13
+
+# define DEFAULT_COLOR 0xFFFFFF
 # define ERROR_ARGS 1
 # define ERROR_MALLOC 2
 # define ERROR_READING_FILE 3
-# define MAX_ITER 20
-# define MOUSE_ZOOM 5000
 # define INIT_OFFSET_X -700
 # define INIT_OFFSET_Y -320
+# define KEYBOARD_OFFSET_AMOUNT 10.0
+# define MAX_ITER 20
+# define WINDOW_WIDTH 1000
+# define WINDOW_HEIGHT 667
+# define ZOOM_AMOUNT 0.05
+
+
+
+
+
+
 
 typedef struct s_image
 {

@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/06/01 17:05:25 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/06/01 18:43:10 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,24 @@ int				mouse_event(int button, int x, int y, void *param)
 	{
 		if (mlx->zoom > 0)
 		{
-			//long double half = WINDOW_HEIGHT / 2;
-			//long double halfx = WINDOW_WIDTH / 2;
+			int h = WINDOW_HEIGHT / 2;
+			int w = WINDOW_WIDTH / 2;
+
+			h = h - y;
+			w = w - x;
+			//h /= mlx->zoom;
+			//w /= mlx->zoom;
+			//printf("%Lf %Lf, %Lf\n", h, w, mlx->zoom);
+			printf("%Lf %Lf, %Lf\n", mlx->offset[0], mlx->offset[0], mlx->zoom);
 			mlx->zoom -= ZOOM_AMOUNT;
-			mlx->offset[0] += (x + 50 - WINDOW_WIDTH * 0.75) / 10;
-			mlx->offset[1] += (y - WINDOW_HEIGHT * 0.5) / 10;
-			mlx->offset[0] /= 1.1;
-			mlx->offset[1] /= 1.1;
+
+			mlx->offset[0] += -w * 0.15;
+			mlx->offset[1] += -h * 0.15;
+
+			//mlx->offset[0] += (x + 50 - WINDOW_WIDTH * 0.75) / 10;
+			//mlx->offset[1] += (y - WINDOW_HEIGHT * 0.5) / 10;
+			//mlx->offset[0] /= 1.1;
+			//mlx->offset[1] /= 1.1;
 			mlx->num1 *= 1.1;
 			mlx->num2 *= 1.1;
 			mlx->num3 *= 1.1;
@@ -86,7 +97,7 @@ int				mouse_move(int x, int y, void *param)
 		}
 	}
 
-	printf("%d %f Offset X: %Lf Offset y: %Lf\n",mlx->mouse_x, 1.0 * y - mlx->mouse_y, mlx->offset[0], mlx->offset[1]);
+	//printf("%d %f Offset X: %Lf Offset y: %Lf\n",mlx->mouse_x, 1.0 * y - mlx->mouse_y, mlx->offset[0], mlx->offset[1]);
 	mlx->mouse_x = x;
 	mlx->mouse_y = y;
 	handle_drawing(mlx);
