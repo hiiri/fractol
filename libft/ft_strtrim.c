@@ -27,7 +27,7 @@ char	*ft_strtrim(char const *s)
 	end = ft_strlen(s) - 1;
 	if (start == end + 1)
 		return ("");
-	while (end >= 0 && ft_iswhitespace(s[end]))
+	while (ft_iswhitespace(s[end]))
 	{
 		end--;
 	}

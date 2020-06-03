@@ -17,12 +17,10 @@ static size_t	ft_count_words(char const *s, char c)
 {
 	size_t	i;
 	size_t	count;
-	size_t	j;
 	int		flag;
 
 	i = 0;
 	count = 0;
-	j = 0;
 	flag = 0;
 	while (s[i])
 	{
