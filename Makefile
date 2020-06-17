@@ -23,6 +23,11 @@ MLX = -I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL \
 
 all: $(NAME)
 
+linux:
+	@$(MAKE_LIB)
+	gcc -c $(SRCS)
+	gcc $(OBJS) ../minilibx/libmlx_Linux.a -lm -lX11 -lXext -o $(NAME) $(LIBFT)
+
 noflags:
 	@$(MAKE_LIB)
 	gcc -c $(SRCS)

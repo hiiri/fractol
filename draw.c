@@ -31,8 +31,166 @@ static void		pixel_to_image(t_image *image, int x, int y, int color)
 void			handle_drawing(t_mlx *mlx)
 {
 	//if type == mandelbrot
-	mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	//mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	//tmp_mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
+}
+
+long double	tmpscale(int n, long double old[2], long double new[2])
+{
+	long double result;
+
+	result = (new[1] - new[0]) * (n - old[0]) / (old[1] - old[0]) + new[0];
+	return (result);
+}
+
+void			julia(t_mlx *mlx, int px, int py)
+{
+	long double	xy_scaled[2];
+	int			iter;
+	int			xy_loop[2];
+	long double	x;
+	long double	y;
+	long double	slope[2];
+	int 		color;
+	double 		xtemp;
+	long double cx;
+	long double cy;
+	long double creal;
+	long double cimag;
+	mlx->re1 = -2.0;
+	mlx->re2 = 1.0;
+	mlx->im1 = -1.0;
+	mlx->im2 = 1.0;
+	xy_loop[0] = 0;
+	xy_loop[1] = 0;
+	
+	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->re1, mlx->re2});
+	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (long double[2]){mlx->im1, mlx->im2});
+	
+	creal=-0.8+.6*sin(mlx->iter/(3.14*20));    // calculate the new coordinates
+    cimag=0.156+.4*cos(mlx->iter/(3.14*40));
+	while (xy_loop[0] < px)
+	{
+		xy_loop[1] = 0;
+		// y loop
+		while (xy_loop[1] < py)
+		{
+			x = 0.0;
+			y = 0.0;
+			// x loop
+			// mouse move offset goes in (xy_loop[] + mlx->offset[])
+			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]) * mlx->zoom;
+			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]) * mlx->zoom;
+			cx = tmpscale(xy_loop[0], (long double[2]){0, WINDOW_WIDTH},
+		(long double[2]){-2.0, 1.0});
+			cy = tmpscale(xy_loop[1], (long double[2]){0, WINDOW_HEIGHT},
+		(long double[2]){-1.0, 1.0});
+		
+			iter = 0;
+
+			//int zx = slope[0] * xy_loop[0];
+			//int zy = slope[1] * xy_loop[1];
+			while (cx * cx + cy * cy < 4 && iter < mlx->iter)
+			{
+				xtemp= cx * cx - cy * cy + creal;
+				cy = 2 * cx * cy + cimag;
+				cx = xtemp;
+				
+				
+				/*
+				xtemp=zx*zx - zy*zy + cx;
+				zy=(2*zx*zy + cy) + xy_scaled[1];
+				zx=xtemp + xy_scaled[0];
+				*/
+
+				iter++;
+			}
+			if (iter == mlx->iter)
+				color = 0;
+			else
+				color = iter * 0x0000C8;
+			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
+			xy_loop[1]++;
+		}
+		xy_loop[0]++;
+	}
+	
+}
+
+void			tmp_mandelbrot(t_mlx *mlx, int px, int py)
+{
+	long double	xy_scaled[2];
+	int		iter;
+	int		xy_loop[2];
+	long double	x;
+	long double	y;
+	long double	slope[2];
+	int color;
+	long double x2;
+	long double y2;
+	long double w;
+
+	mlx->re1 = -2.0;
+	mlx->re2 = 1.0;
+	mlx->im1 = -1.0;
+	mlx->im2 = 1.0;
+	xy_loop[0] = 0;
+	xy_loop[1] = 0;
+	double xtemp;
+	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->re1, mlx->re2});
+	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (long double[2]){mlx->im1, mlx->im2});
+	long double zy;
+	long double zx;
+	double creal = -0.8;
+	double cimag = 0.156;
+	//creal=-0.8+.6*sin(mlx->iter/(3.14*20));    // calculate the new coordinates
+    //cimag=0.156+.4*cos(mlx->iter/(3.14*40));
+	while (xy_loop[0] < px)
+	{
+		xy_loop[1] = 0;
+		// y loop
+		while (xy_loop[1] < py)
+		{
+			x = 0.0;
+			y = 0.0;
+			// x loop
+			// mouse move offset goes in (xy_loop[] + mlx->offset[])
+			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]) * mlx->zoom;
+			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]) * mlx->zoom;
+			long double cx = tmpscale(xy_loop[0], (long double[2]){0, WINDOW_WIDTH},
+		(long double[2]){-2.0, 1.0});
+			long double cy = tmpscale(xy_loop[1], (long double[2]){0, WINDOW_HEIGHT},
+		(long double[2]){-1.0, 1.0});
+			iter = 0;
+			zx = 0.0;
+			zy = 0.0;
+			//int zx = slope[0] * xy_loop[0];
+			//int zy = slope[1] * xy_loop[1];
+			while (zx * zx + zy * zy <= 4 && iter < mlx->iter)
+			{
+				/*//xtemp = zx * zx - zy * zy + xy_scaled[0];
+				xtemp = zx * zx - zy * zy + creal + xy_scaled[0];
+				zy = 2 * zx * zy + cimag + xy_scaled[1];
+				//zy = 2 * zx * zy + xy_scaled[1];
+				*/
+				xtemp = zx * zy;
+				zx=zx*zx-zy*zy+cx + xy_scaled[0];
+                zy=2*xtemp+cy + xy_scaled[1];
+				
+				iter++;
+			}
+			if (iter == mlx->iter)
+				color = 0;
+			else
+				color = iter * 0x0000C8;
+			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
+			xy_loop[1]++;
+		}
+		xy_loop[0]++;
+	}
+	
 }
 
 void	mandelbrot(t_mlx *mlx, int px, int py)
@@ -48,15 +206,15 @@ void	mandelbrot(t_mlx *mlx, int px, int py)
 	long double y2;
 	long double w;
 
-	mlx->num1 = -2.0;
-	mlx->num2 = 1.0;
-	mlx->num3 = -1.0;
-	mlx->num4 = 1.0;
+	mlx->re1 = -2.0;
+	mlx->re2 = 1.0;
+	mlx->im1 = -1.0;
+	mlx->im2 = 1.0;
 	xy_loop[0] = 0;
 	xy_loop[1] = 0;
 
-	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->num1, mlx->num2});
-	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (long double[2]){mlx->num3, mlx->num4});
+	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->re1, mlx->re2});
+	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (long double[2]){mlx->im1, mlx->im2});
 	while (xy_loop[0] < px)
 	{
 		xy_loop[1] = 0;

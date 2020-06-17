@@ -41,7 +41,7 @@ t_mlx			*initialize_mlx_struct(void)
 	mlx->mouse_x = 0;
 	mlx->mouse_y = 0;
 	mlx->mouse_pressed = 0;
-	mlx->zoom = 1.0;
+	mlx->zoom = INIT_ZOOM_SCALE;
 	mlx->offset[0] = INIT_OFFSET_X;
 	mlx->offset[1] = INIT_OFFSET_Y;
 	mlx->iter = MAX_ITER;
@@ -53,7 +53,7 @@ int				deal_key(int key, void *param)
 	t_mlx	*mlx;
 
 	mlx = param;
-	if (key == 53)
+	if (key == ESC)
 		exit(0);
 	if (key == UP_ARROW)
 	 	mlx->offset[1] += KEYBOARD_OFFSET_AMOUNT;
@@ -95,10 +95,9 @@ int				main(int argc, char **argv)
 	mlx->init = mlx_init();
 	mlx->image = initialize_image(mlx);
 
-
 	mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
-	mlx_hook(mlx->window, 2, 0, deal_key, mlx);
-	mlx_hook(mlx->window, 4, 0, mouse_event, mlx);
+	mlx_hook(mlx->window, 2, (1L<<0), deal_key, mlx);
+	mlx_hook(mlx->window, 4, (1L<<1), mouse_event, mlx);
 	mlx_hook(mlx->window, 5, 0, mouse_release, mlx);
 	mlx_hook(mlx->window, 6, 0, mouse_move, mlx);
 	handle_drawing(mlx);

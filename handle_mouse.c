@@ -18,6 +18,7 @@ int				mouse_event(int button, int x, int y, void *param)
 {
 	t_mlx	*mlx;
 
+	printf("%d%d%d\n", button, x, y);
 	mlx = param;
 	if (button == 4)
 	{
@@ -41,10 +42,10 @@ int				mouse_event(int button, int x, int y, void *param)
 			//mlx->offset[1] += (y - WINDOW_HEIGHT * 0.5) / 10;
 			//mlx->offset[0] /= 1.1;
 			//mlx->offset[1] /= 1.1;
-			mlx->num1 *= 1.1;
-			mlx->num2 *= 1.1;
-			mlx->num3 *= 1.1;
-			mlx->num4 *= 1.1;
+			mlx->im1 *= 1.1;
+			mlx->im2 *= 1.1;
+			mlx->re1 *= 1.1;
+			mlx->re2 *= 1.1;
 			//printf("%f\n", (x + 50 - WINDOW_WIDTH * 0.75) / 10);
 		}
 	}

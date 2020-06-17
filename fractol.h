@@ -15,7 +15,8 @@
 # define FRACTOL_H
 
 # include <stdlib.h>
-# include "mlx.h"
+//# include "mlx.h"
+# include "../minilibx/mlx.h"
 # include "libft/libft.h"
 # include <unistd.h>
 # include <math.h>
@@ -23,12 +24,24 @@
 /*
 ** Keys
 */
-# define UP_ARROW 126
-# define DOWN_ARROW 125
-# define LEFT_ARROW 123
-# define RIGHT_ARROW 124
-# define Q 12
-# define W 13
+
+# ifdef __APPLE__
+	# define UP_ARROW 126
+	# define DOWN_ARROW 125
+	# define LEFT_ARROW 123
+	# define RIGHT_ARROW 124
+	# define Q 12
+	# define W 13
+	# define ESC 53
+# elif __linux__
+	# define UP_ARROW 65362
+	# define DOWN_ARROW 65364
+	# define LEFT_ARROW 65361
+	# define RIGHT_ARROW 65363
+	# define Q 113
+	# define W 119
+	# define ESC 65307
+	# endif
 
 # define DEFAULT_COLOR 0x0F000F
 # define ERROR_ARGS 1
@@ -41,6 +54,7 @@
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 667
 # define ZOOM_AMOUNT 0.05
+# define INIT_ZOOM_SCALE 1
 
 
 
@@ -72,10 +86,10 @@ typedef struct	s_mlx
 	int			mouse_y;
 	int			mouse_pressed;
 	int			iter;
-	long double	num1;
-	long double	num2;
-	long double	num3;
-	long double	num4;
+	long double	re1;
+	long double	re2;
+	long double	im1;
+	long double	im2;
 	t_image		*image;
 }				t_mlx;
 
@@ -87,6 +101,7 @@ int				mouse_release(int button, int x, int y, void *param);
 int				mouse_move(int x, int y, void *param);
 void			handle_error(int error);
 void			mandelbrot(t_mlx *mlx, int x, int y);
+void			julia(t_mlx *mlx, int px, int py);
 void			handle_drawing(t_mlx *mlx);
 
 #endif
