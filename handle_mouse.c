@@ -21,7 +21,7 @@ int				mouse_event(int button, int x, int y, void *param)
 	mlx = param;
 	if (button == 4)
 	{
-		if (mlx->zoom > 0)
+		if (1)
 		{
 			int h = WINDOW_HEIGHT / 2;
 			int w = WINDOW_WIDTH / 2;
@@ -33,7 +33,7 @@ int				mouse_event(int button, int x, int y, void *param)
 			//printf("%Lf %Lf, %Lf\n", h, w, mlx->zoom);
 			//printf("%Lf %Lf, %Lf\n", mlx->offset[0], mlx->offset[0], mlx->zoom);
 			mlx->zoom -= ZOOM_AMOUNT;
-
+			printf("%Lf\n",mlx->zoom);
 			mlx->offset[0] += -w * 0.15;
 			mlx->offset[1] += -h * 0.15;
 

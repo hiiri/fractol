@@ -51,9 +51,9 @@
 # define INIT_OFFSET_Y -320
 # define KEYBOARD_OFFSET_AMOUNT 10
 # define MAX_ITER 10
-# define WINDOW_WIDTH 300
-# define WINDOW_HEIGHT 300
-# define ZOOM_AMOUNT 0.05
+# define WINDOW_WIDTH 600
+# define WINDOW_HEIGHT 400
+# define ZOOM_AMOUNT 0.1
 # define INIT_ZOOM_SCALE 1
 
 /*

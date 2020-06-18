@@ -100,7 +100,7 @@ int				main(int argc, char **argv)
 	mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
 	mlx_hook(mlx->window, 2, (1L<<0), deal_key, mlx);
 	mlx_hook(mlx->window, 4, (1L<<2), mouse_event, mlx);
-	mlx_hook(mlx->window, 5, 0, mouse_release, mlx);
+	mlx_hook(mlx->window, 5, (1L<<3), mouse_release, mlx);
 	mlx_hook(mlx->window, 6, (1L<<6), mouse_move, mlx);
 	handle_drawing(mlx);
 	mlx_loop(mlx->init);

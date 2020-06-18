@@ -32,9 +32,9 @@ void			handle_drawing(t_mlx *mlx)
 {
 	//if type == mandelbrot
 	//old_mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	//tmp_mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	mlx->fractal = JULIA;
-	julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	tmp_mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	//mlx->fractal = JULIA;
+	//julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
 }
 
@@ -108,10 +108,10 @@ void			tmp_mandelbrot(t_mlx *mlx, int px, int py)
 	long double y2;
 	long double w;
 
-	mlx->re1 = -2.0;
-	mlx->re2 = 1.0;
-	mlx->im1 = -1.0;
-	mlx->im2 = 1.0;
+	mlx->re1 = -2.0 * mlx->zoom;
+	mlx->re2 = 1.0 * mlx->zoom;
+	mlx->im1 = -1.0*mlx->zoom;
+	mlx->im2 = 1.0*mlx->zoom;
 	xy_loop[0] = 0;
 	xy_loop[1] = 0;
 	double xtemp;
@@ -133,8 +133,8 @@ void			tmp_mandelbrot(t_mlx *mlx, int px, int py)
 			y = 0.0;
 			// x loop
 			// mouse move offset goes in (xy_loop[] + mlx->offset[])
-			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]) * mlx->zoom;
-			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]) * mlx->zoom;
+			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]);
+			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]);
 			long double cx = tmpscale(xy_loop[0], (long double[2]){0, WINDOW_WIDTH},
 		(long double[2]){-2.0, 1.0});
 			long double cy = tmpscale(xy_loop[1], (long double[2]){0, WINDOW_HEIGHT},
