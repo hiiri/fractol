@@ -18,7 +18,6 @@ int				mouse_event(int button, int x, int y, void *param)
 {
 	t_mlx	*mlx;
 
-	printf("%d%d%d\n", button, x, y);
 	mlx = param;
 	if (button == 4)
 	{
@@ -84,7 +83,7 @@ int				mouse_move(int x, int y, void *param)
 	t_mlx	*mlx;
 
 	mlx = param;
-	if (mlx->mouse_pressed)
+	if (mlx->mouse_pressed && mlx->fractal == MANDELBROT)
 	{
 		if (x != mlx->mouse_x)
 		{
@@ -94,10 +93,11 @@ int				mouse_move(int x, int y, void *param)
 		{
 			mlx->offset[1] -= 1.0 * y - mlx->mouse_y;
 		}
+		handle_drawing(mlx);
 	}
-
 	mlx->mouse_x = x;
 	mlx->mouse_y = y;
-	handle_drawing(mlx);
+	if (mlx->fractal == JULIA)
+		handle_drawing(mlx);
 	return (0);
 }

@@ -37,6 +37,7 @@ t_mlx			*initialize_mlx_struct(void)
 		handle_error(ERROR_MALLOC);
 	mlx->height = WINDOW_HEIGHT;
 	mlx->width = WINDOW_WIDTH;
+	mlx->fractal = MANDELBROT;
 	mlx->color = DEFAULT_COLOR;
 	mlx->mouse_x = 0;
 	mlx->mouse_y = 0;
@@ -97,9 +98,9 @@ int				main(int argc, char **argv)
 
 	mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
 	mlx_hook(mlx->window, 2, (1L<<0), deal_key, mlx);
-	mlx_hook(mlx->window, 4, (1L<<1), mouse_event, mlx);
+	mlx_hook(mlx->window, 4, (1L<<2), mouse_event, mlx);
 	mlx_hook(mlx->window, 5, 0, mouse_release, mlx);
-	mlx_hook(mlx->window, 6, 0, mouse_move, mlx);
+	mlx_hook(mlx->window, 6, (1L<<6), mouse_move, mlx);
 	handle_drawing(mlx);
 	mlx_loop(mlx->init);
 	return (0);

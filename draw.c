@@ -33,6 +33,7 @@ void			handle_drawing(t_mlx *mlx)
 	//if type == mandelbrot
 	//mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	//tmp_mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	mlx->fractal = JULIA;
 	julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
 }
@@ -69,8 +70,8 @@ void			julia(t_mlx *mlx, int px, int py)
 	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->re1, mlx->re2});
 	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (long double[2]){mlx->im1, mlx->im2});
 	
-	creal=-0.8+.6*sin(mlx->iter/(3.14*20));    // calculate the new coordinates
-    cimag=0.156+.4*cos(mlx->iter/(3.14*40));
+	creal=-0.8+.6*sin(mlx->mouse_x/(3.14*20));    // calculate the new coordinates
+    cimag=0.156+.4*cos(mlx->mouse_y/(3.14*40));
 	while (xy_loop[0] < px)
 	{
 		xy_loop[1] = 0;

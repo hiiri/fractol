@@ -50,13 +50,18 @@
 # define INIT_OFFSET_X -700
 # define INIT_OFFSET_Y -320
 # define KEYBOARD_OFFSET_AMOUNT 10
-# define MAX_ITER 20
-# define WINDOW_WIDTH 1000
-# define WINDOW_HEIGHT 667
+# define MAX_ITER 10
+# define WINDOW_WIDTH 300
+# define WINDOW_HEIGHT 300
 # define ZOOM_AMOUNT 0.05
 # define INIT_ZOOM_SCALE 1
 
+/*
+** Fractals
+*/
 
+# define MANDELBROT 1
+# define JULIA 2
 
 
 
@@ -79,6 +84,7 @@ typedef struct	s_mlx
 	int			width;
 	void		*init;
 	void		*window;
+	int			fractal;
 	long double	zoom;
 	int			offset[2];
 	int			color;
