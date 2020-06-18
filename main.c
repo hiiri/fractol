@@ -46,6 +46,7 @@ t_mlx			*initialize_mlx_struct(void)
 	mlx->offset[0] = INIT_OFFSET_X;
 	mlx->offset[1] = INIT_OFFSET_Y;
 	mlx->iter = MAX_ITER;
+	mlx->mouse_moves = 0;
 	return (mlx);
 }
 

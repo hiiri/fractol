@@ -63,8 +63,11 @@
 # define MANDELBROT 1
 # define JULIA 2
 
+/*
+** Performance
+*/
 
-
+# define JULIA_REDRAW_EVERY_MOUSE_MOVE_AMOUNT 1
 
 
 typedef struct s_image
@@ -80,6 +83,7 @@ typedef struct s_image
 
 typedef struct	s_mlx
 {
+	int			mouse_moves;
 	int			height;
 	int			width;
 	void		*init;
@@ -106,7 +110,7 @@ int				mouse_event(int button, int x, int y, void *param);
 int				mouse_release(int button, int x, int y, void *param);
 int				mouse_move(int x, int y, void *param);
 void			handle_error(int error);
-void			mandelbrot(t_mlx *mlx, int x, int y);
+//void			mandelbrot(t_mlx *mlx, int x, int y);
 void			julia(t_mlx *mlx, int px, int py);
 void			handle_drawing(t_mlx *mlx);
 

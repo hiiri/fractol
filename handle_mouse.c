@@ -97,7 +97,11 @@ int				mouse_move(int x, int y, void *param)
 	}
 	mlx->mouse_x = x;
 	mlx->mouse_y = y;
-	if (mlx->fractal == JULIA)
+	if (mlx->fractal == JULIA && mlx->mouse_moves >= JULIA_REDRAW_EVERY_MOUSE_MOVE_AMOUNT)
+	{
+		mlx->mouse_moves = 0;
 		handle_drawing(mlx);
+	}
+	mlx->mouse_moves++;
 	return (0);
 }
