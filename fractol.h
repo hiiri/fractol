@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/06/01 19:09:22 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/21 17:47:12 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # define FRACTOL_H
 
 # include <stdlib.h>
-//# include "mlx.h"
-# include "../minilibx/mlx.h"
 # include "libft/libft.h"
 # include <unistd.h>
 # include <math.h>
@@ -26,6 +24,7 @@
 */
 
 # ifdef __APPLE__
+	# include "mlx.h"
 	# define UP_ARROW 126
 	# define DOWN_ARROW 125
 	# define LEFT_ARROW 123
@@ -34,6 +33,7 @@
 	# define W 13
 	# define ESC 53
 # elif __linux__
+	# include "../minilibx/mlx.h"
 	# define UP_ARROW 65362
 	# define DOWN_ARROW 65364
 	# define LEFT_ARROW 65361
@@ -110,7 +110,7 @@ int				mouse_event(int button, int x, int y, void *param);
 int				mouse_release(int button, int x, int y, void *param);
 int				mouse_move(int x, int y, void *param);
 void			handle_error(int error);
-//void			mandelbrot(t_mlx *mlx, int x, int y);
+void			mandelbrot(t_mlx *mlx, int x, int y);
 void			julia(t_mlx *mlx, int px, int py);
 void			handle_drawing(t_mlx *mlx);
 

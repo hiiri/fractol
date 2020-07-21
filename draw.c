@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/06/01 19:14:18 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/21 17:48:02 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void			handle_drawing(t_mlx *mlx)
 {
 	//if type == mandelbrot
 	//old_mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	tmp_mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	//mlx->fractal = JULIA;
 	//julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
@@ -74,7 +74,7 @@ void			julia(t_mlx *mlx, int px, int py)
 			cx = tmpscale(xy_loop[0], (long double[2]){0, WINDOW_WIDTH},
 		(long double[2]){-2.0, 1.0});
 			cy = tmpscale(xy_loop[1], (long double[2]){0, WINDOW_HEIGHT},
-		(long double[2]){-1.0, 1.0});	
+		(long double[2]){-1.0, 1.0});
 			iter = 0;
 			while (cx * cx + cy * cy < 4 && iter < mlx->iter)
 			{
@@ -92,10 +92,10 @@ void			julia(t_mlx *mlx, int px, int py)
 		}
 		xy_loop[0]++;
 	}
-	
+
 }
 
-void			tmp_mandelbrot(t_mlx *mlx, int px, int py)
+void			mandelbrot(t_mlx *mlx, int px, int py)
 {
 	long double	xy_scaled[2];
 	int		iter;
@@ -104,9 +104,6 @@ void			tmp_mandelbrot(t_mlx *mlx, int px, int py)
 	long double	y;
 	long double	slope[2];
 	int color;
-	long double x2;
-	long double y2;
-	long double w;
 
 	mlx->re1 = -2.0 * mlx->zoom;
 	mlx->re2 = 1.0 * mlx->zoom;
@@ -119,10 +116,6 @@ void			tmp_mandelbrot(t_mlx *mlx, int px, int py)
 	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (long double[2]){mlx->im1, mlx->im2});
 	long double zy;
 	long double zx;
-	double creal = -0.8;
-	double cimag = 0.156;
-	//creal=-0.8+.6*sin(mlx->iter/(3.14*20));    // calculate the new coordinates
-    //cimag=0.156+.4*cos(mlx->iter/(3.14*40));
 	while (xy_loop[0] < px)
 	{
 		xy_loop[1] = 0;
@@ -154,7 +147,7 @@ void			tmp_mandelbrot(t_mlx *mlx, int px, int py)
 				xtemp = zx * zy;
 				zx=zx*zx-zy*zy+cx + xy_scaled[0];
                 zy=2*xtemp+cy + xy_scaled[1];
-				
+
 				iter++;
 			}
 			if (iter == mlx->iter)
@@ -166,7 +159,7 @@ void			tmp_mandelbrot(t_mlx *mlx, int px, int py)
 		}
 		xy_loop[0]++;
 	}
-	
+
 }
 /*
 void	old_mandelbrot(t_mlx *mlx, int px, int py)
