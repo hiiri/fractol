@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/21 18:17:52 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/21 18:26:31 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ int				main(int argc, char **argv)
 	if (argc == 2)
 	{
 		mlx = initialize_mlx_struct();
+		if ((mlx->fractal = check_arguments(argv[1])) == -1)
+			handle_error(ERROR_FRACTAL_TYPE);
 		mlx->init = mlx_init();
 		mlx->image = initialize_image(mlx);
 		mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
-		if ((mlx->fractal = check_arguments(argv[1])) == -1)
-			handle_error(ERROR_FRACTAL_TYPE);
 		//printf("%d\n", mlx->fractal);
 		mlx_hook(mlx->window, 2, (1L<<0), deal_key, mlx);
 		mlx_hook(mlx->window, 4, (1L<<2), mouse_event, mlx);
