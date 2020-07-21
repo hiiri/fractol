@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/21 17:45:44 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/21 18:17:52 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,6 @@ t_mlx			*initialize_mlx_struct(void)
 	return (mlx);
 }
 
-int				deal_key(int key, void *param)
-{
-	t_mlx	*mlx;
-
-	mlx = param;
-	if (key == ESC)
-		exit(0);
-	if (key == UP_ARROW)
-	 	mlx->offset[1] += KEYBOARD_OFFSET_AMOUNT;
-	else if (key == DOWN_ARROW)
-		mlx->offset[1] -= KEYBOARD_OFFSET_AMOUNT;
-	else if (key == LEFT_ARROW)
-	 	mlx->offset[0] += KEYBOARD_OFFSET_AMOUNT;
-	else if (key == RIGHT_ARROW)
-	 	mlx->offset[0] -= KEYBOARD_OFFSET_AMOUNT;
-	else if (mlx->iter > 0 && key == Q)
-		mlx->iter -= 1;
-	else if (key == W)
-		mlx->iter += 1;
-	handle_drawing(mlx);
-	return (0);
-}
-
 void			handle_error(int error)
 {
 	if (error == ERROR_ARGS)
@@ -81,28 +58,40 @@ void			handle_error(int error)
 		write(1, "Malloc error\n", 13);
 	else if (error == ERROR_READING_FILE)
 		write(1, "Couldn't read file\n", 19);
+	else if (error == ERROR_FRACTAL_TYPE)
+		write(1, "No such fractal type\n", 21);
 	exit(0);
+}
+
+static int		check_arguments(char *arg) {
+	if (ft_strcmp("mandelbrot", arg) == 0)
+		return (MANDELBROT);
+	if (ft_strcmp("julia", arg) == 0)
+		return (JULIA);
+	return (-1);
 }
 
 int				main(int argc, char **argv)
 {
 	t_mlx	*mlx;
 
-	(void)argv;
-	(void)argc;
-	// if (argc != 2)
-	// 	handle_error(1);
-
-	mlx = initialize_mlx_struct();
-	mlx->init = mlx_init();
-	mlx->image = initialize_image(mlx);
-
-	mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
-	mlx_hook(mlx->window, 2, (1L<<0), deal_key, mlx);
-	mlx_hook(mlx->window, 4, (1L<<2), mouse_event, mlx);
-	mlx_hook(mlx->window, 5, (1L<<3), mouse_release, mlx);
-	mlx_hook(mlx->window, 6, (1L<<6), mouse_move, mlx);
-	handle_drawing(mlx);
-	mlx_loop(mlx->init);
+	if (argc == 2)
+	{
+		mlx = initialize_mlx_struct();
+		mlx->init = mlx_init();
+		mlx->image = initialize_image(mlx);
+		mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
+		if ((mlx->fractal = check_arguments(argv[1])) == -1)
+			handle_error(ERROR_FRACTAL_TYPE);
+		//printf("%d\n", mlx->fractal);
+		mlx_hook(mlx->window, 2, (1L<<0), deal_key, mlx);
+		mlx_hook(mlx->window, 4, (1L<<2), mouse_event, mlx);
+		mlx_hook(mlx->window, 5, (1L<<3), mouse_release, mlx);
+		mlx_hook(mlx->window, 6, (1L<<6), mouse_move, mlx);
+		handle_drawing(mlx);
+		mlx_loop(mlx->init);
+	}
+	else
+		handle_error(1);
 	return (0);
 }

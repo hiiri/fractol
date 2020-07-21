@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/21 17:41:21 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/21 17:59:50 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,28 @@ int				mouse_move(int x, int y, void *param)
 		handle_drawing(mlx);
 	}
 	mlx->mouse_moves++;
+	return (0);
+}
+
+int				deal_key(int key, void *param)
+{
+	t_mlx	*mlx;
+
+	mlx = param;
+	if (key == ESC)
+		exit(0);
+	if (key == UP_ARROW)
+	 	mlx->offset[1] += KEYBOARD_OFFSET_AMOUNT;
+	else if (key == DOWN_ARROW)
+		mlx->offset[1] -= KEYBOARD_OFFSET_AMOUNT;
+	else if (key == LEFT_ARROW)
+	 	mlx->offset[0] += KEYBOARD_OFFSET_AMOUNT;
+	else if (key == RIGHT_ARROW)
+	 	mlx->offset[0] -= KEYBOARD_OFFSET_AMOUNT;
+	else if (mlx->iter > 0 && key == Q)
+		mlx->iter -= 1;
+	else if (key == W)
+		mlx->iter += 1;
+	handle_drawing(mlx);
 	return (0);
 }

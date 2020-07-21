@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/21 17:47:12 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/21 18:18:21 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,17 @@
 	# define ESC 65307
 	# endif
 
+/*
+** General
+*/
+
 # define DEFAULT_COLOR 0x0F000F
-# define ERROR_ARGS 1
-# define ERROR_MALLOC 2
-# define ERROR_READING_FILE 3
 # define INIT_OFFSET_X -700
 # define INIT_OFFSET_Y -320
 # define KEYBOARD_OFFSET_AMOUNT 10
 # define MAX_ITER 10
-# define WINDOW_WIDTH 600
-# define WINDOW_HEIGHT 400
+# define WINDOW_WIDTH 1280
+# define WINDOW_HEIGHT 800
 # define ZOOM_AMOUNT 0.1
 # define INIT_ZOOM_SCALE 1
 
@@ -69,6 +70,14 @@
 
 # define JULIA_REDRAW_EVERY_MOUSE_MOVE_AMOUNT 1
 
+/*
+**	Error messages
+*/
+
+# define ERROR_ARGS 1
+# define ERROR_MALLOC 2
+# define ERROR_READING_FILE 3
+# define ERROR_FRACTAL_TYPE 4
 
 typedef struct s_image
 {

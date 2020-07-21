@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/21 17:48:02 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/21 18:12:46 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ static void		pixel_to_image(t_image *image, int x, int y, int color)
 
 void			handle_drawing(t_mlx *mlx)
 {
-	//if type == mandelbrot
-	//old_mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	//mlx->fractal = JULIA;
-	//julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (mlx->fractal == MANDELBROT)
+		mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	else if (mlx->fractal == JULIA)
+		julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
 }
 
@@ -62,8 +61,8 @@ void			julia(t_mlx *mlx, int px, int py)
 	xy_loop[0] = 0;
 	xy_loop[1] = 0;
 
-	creal=-0.8+0.6*sin(mlx->mouse_x/(3.14*20));
-    cimag=0.156+0.4*cos(mlx->mouse_y/(3.14*40));
+	creal=-0.8+0.6*sin(mlx->mouse_x/(3.14*100));
+    cimag=0.156+0.4*cos(mlx->mouse_y/(3.14*20));
 	while (xy_loop[0] < px)
 	{
 		xy_loop[1] = 0;
