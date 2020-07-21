@@ -10,7 +10,7 @@ Fractal rendering program
 
 To do | Done
 --- | ---
-Command line parameters |
+Command line parameters | ✔️
 Multithreading | 
 More fractals | 
 Color palettes | 
