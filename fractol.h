@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 21:27:06 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 21:34:19 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 ** Performance
 */
 
-# define JULIA_REDRAW_MOVE_AMOUNT 10
+# define JULIA_REDRAW_MOVE_AMOUNT 1
 
 /*
 **	Error messages
