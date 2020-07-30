@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 16:41:04 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 20:39:31 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include "libft/libft.h"
 # include <unistd.h>
 # include <math.h>
-
+# include <pthread.h>
+#include <stdio.h> //r
 /*
 ** Keys
 */
@@ -56,6 +57,12 @@
 # define WINDOW_HEIGHT 800
 # define ZOOM_AMOUNT 0.1
 # define INIT_ZOOM_SCALE 1
+
+/*
+** Multithreading
+*/
+
+# define MAX_THREADS 4
 
 /*
 ** Fractals
@@ -112,6 +119,13 @@ typedef struct	s_mlx
 	t_image		*image;
 }				t_mlx;
 
+typedef struct	s_thread
+{
+	int		size;
+	int		num;
+	t_mlx	*mlx;
+}				t_thread;
+
 t_mlx			*initialize_mlx_struct(void);
 t_image			*initialize_image(t_mlx *mlx);
 int				deal_key(int key, void *param);
@@ -119,7 +133,7 @@ int				mouse_event(int button, int x, int y, void *param);
 int				mouse_release(int button, int x, int y, void *param);
 int				mouse_move(int x, int y, void *param);
 void			handle_error(int error);
-void			mandelbrot(t_mlx *mlx, int px, int py);
+void			mandelbrot(t_thread *td, t_mlx *mlx, int px, int py);
 void			julia(t_mlx *mlx, int px, int py);
 void			burning_ship(t_mlx *mlx, int x, int y);
 void			handle_drawing(t_mlx *mlx);

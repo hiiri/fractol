@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 17:04:43 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 20:13:49 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ t_mlx			*initialize_mlx_struct(void)
 	mlx->offset[1] = INIT_OFFSET_Y;
 	mlx->max_iter = MAX_ITER;
 	mlx->mouse_moves = 0;
-	printf("%d\n", mlx_get_color_value(mlx, 167641080));
 	return (mlx);
 }
 

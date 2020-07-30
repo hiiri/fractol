@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 18:32:11 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 20:39:29 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,47 @@ static void		pixel_to_image(t_image *image, int x, int y, int color)
 	image->image[x * 4 + y * image->size_line + 2] = color / 256 / 256 % 256;
 }
 
+static void			*draw_fractal_part(void *data)
+{
+	t_thread	*td = data;
+	mandelbrot(td, td->mlx, WINDOW_WIDTH / 4 * (td->num + 1), WINDOW_HEIGHT);
+	return (NULL);
+}
+
+
 void			handle_drawing(t_mlx *mlx)
 {
-	if (mlx->fractal == MANDELBROT)
-		mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	else if (mlx->fractal == JULIA)
-		julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	else if (mlx->fractal == BURNING_SHIP)
-		burning_ship(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	pthread_t	thread_id[MAX_THREADS];
+	t_thread	threads[MAX_THREADS];
+
+	int i = 0;
+	int ret;
+
+	for (i = 0; i < MAX_THREADS; i++)
+	{
+		threads[i].size = WINDOW_WIDTH / MAX_THREADS;
+		threads[i].num = i;
+		threads[i].mlx = mlx;
+		ret = pthread_create(&thread_id[i], NULL, draw_fractal_part, &threads[i]);
+		//if (i == 1)
+		//	pthread_create(&thread_id[i], NULL, test2, &threads[i]);
+	}
+	for (i = 0; i < MAX_THREADS; i++)
+	{
+		pthread_join(thread_id[i], NULL);
+	}
+
+
+	// if (mlx->fractal == MANDELBROT)
+	// 	mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	// else if (mlx->fractal == JULIA)
+	// 	julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	// else if (mlx->fractal == BURNING_SHIP)
+	// 	burning_ship(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
 }
+
+
 
 long double 	tmpscale(int n, long double old[2], long double new[2])
 {
@@ -96,7 +127,8 @@ void			julia(t_mlx *mlx, int px, int py)
 
 }
 
-void			mandelbrot(t_mlx *mlx, int px, int py)
+
+void			mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 {
 	long double	xy_scaled[2];
 	int		iter;
@@ -110,7 +142,8 @@ void			mandelbrot(t_mlx *mlx, int px, int py)
 	mlx->re2 = 1.0 * mlx->zoom;
 	mlx->im1 = -1.0*mlx->zoom;
 	mlx->im2 = 1.0*mlx->zoom;
-	xy_loop[0] = 0;
+	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
+
 	xy_loop[1] = 0;
 	double xtemp;
 	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->re1, mlx->re2});
@@ -120,13 +153,11 @@ void			mandelbrot(t_mlx *mlx, int px, int py)
 	while (xy_loop[0] < px)
 	{
 		xy_loop[1] = 0;
-		// y loop
 		while (xy_loop[1] < py)
 		{
 			x = 0.0;
 			y = 0.0;
-			// x loop
-			// mouse move offset goes in (xy_loop[] + mlx->offset[])
+
 			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]);
 			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]);
 			long double cx = tmpscale(xy_loop[0], (long double[2]){0, WINDOW_WIDTH},
@@ -136,15 +167,9 @@ void			mandelbrot(t_mlx *mlx, int px, int py)
 			iter = 0;
 			zx = 0.0;
 			zy = 0.0;
-			//int zx = slope[0] * xy_loop[0];
-			//int zy = slope[1] * xy_loop[1];
+
 			while (zx * zx + zy * zy <= 4 && iter < mlx->max_iter)
 			{
-				/*//xtemp = zx * zx - zy * zy + xy_scaled[0];
-				xtemp = zx * zx - zy * zy + creal + xy_scaled[0];
-				zy = 2 * zx * zy + cimag + xy_scaled[1];
-				//zy = 2 * zx * zy + xy_scaled[1];
-				*/
 				xtemp = zx * zy;
 				zx=zx*zx-zy*zy+cx + xy_scaled[0];
                 zy=2*xtemp+cy + xy_scaled[1];
@@ -154,7 +179,7 @@ void			mandelbrot(t_mlx *mlx, int px, int py)
 			if (iter == mlx->max_iter)
 				color = 0;
 			else
-				color = 0xFF00FF;
+				color = 0xFFFFF0 * iter;
 			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}

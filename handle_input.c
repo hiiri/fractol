@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 16:17:21 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 20:13:46 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				mouse_event(int button, int x, int y, void *param)
 			//printf("%Lf %Lf, %Lf\n", h, w, mlx->zoom);
 			//printf("%Lf %Lf, %Lf\n", mlx->offset[0], mlx->offset[0], mlx->zoom);
 			mlx->zoom -= ZOOM_AMOUNT;
-			printf("%Lf\n",mlx->zoom);
+
 			mlx->offset[0] += -w * 0.15;
 			mlx->offset[1] += -h * 0.15;
 
