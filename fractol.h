@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 20:39:31 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 20:50:17 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,8 @@ int				mouse_release(int button, int x, int y, void *param);
 int				mouse_move(int x, int y, void *param);
 void			handle_error(int error);
 void			mandelbrot(t_thread *td, t_mlx *mlx, int px, int py);
-void			julia(t_mlx *mlx, int px, int py);
-void			burning_ship(t_mlx *mlx, int x, int y);
+void			julia(t_thread *td, t_mlx *mlx, int px, int py);
+void			burning_ship(t_thread *td, t_mlx *mlx, int x, int y);
 void			handle_drawing(t_mlx *mlx);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 20:39:29 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 20:53:45 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,19 @@ static void		pixel_to_image(t_image *image, int x, int y, int color)
 
 static void			*draw_fractal_part(void *data)
 {
-	t_thread	*td = data;
-	mandelbrot(td, td->mlx, WINDOW_WIDTH / 4 * (td->num + 1), WINDOW_HEIGHT);
+	t_thread		*td;
+	t_mlx 			*mlx;
+	unsigned int	part_width;
+
+	td = data;
+	mlx = td->mlx;
+	part_width = WINDOW_WIDTH / MAX_THREADS * (td->num + 1);
+	if (mlx->fractal == MANDELBROT)
+		mandelbrot(td, mlx, part_width, WINDOW_HEIGHT);
+	else if (mlx->fractal == JULIA)
+		julia(td, td->mlx, part_width, WINDOW_HEIGHT);
+	else if (mlx->fractal == BURNING_SHIP)
+		burning_ship(td, mlx, part_width, WINDOW_HEIGHT);
 	return (NULL);
 }
 
@@ -59,12 +70,7 @@ void			handle_drawing(t_mlx *mlx)
 	}
 
 
-	// if (mlx->fractal == MANDELBROT)
-	// 	mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	// else if (mlx->fractal == JULIA)
-	// 	julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	// else if (mlx->fractal == BURNING_SHIP)
-	// 	burning_ship(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
 }
 
@@ -78,7 +84,7 @@ long double 	tmpscale(int n, long double old[2], long double new[2])
 	return (result);
 }
 
-void			julia(t_mlx *mlx, int px, int py)
+void			julia(t_thread *td, t_mlx *mlx, int px, int py)
 {
 	int			iter;
 	int			xy_loop[2];
@@ -91,7 +97,7 @@ void			julia(t_mlx *mlx, int px, int py)
 	long double creal;
 	long double cimag;
 
-	xy_loop[0] = 0;
+	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
 	xy_loop[1] = 0;
 
 	creal=-0.8+0.6*sin(mlx->mouse_x/(3.14*100));
@@ -126,7 +132,6 @@ void			julia(t_mlx *mlx, int px, int py)
 	}
 
 }
-
 
 void			mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 {
@@ -187,7 +192,7 @@ void			mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 	}
 }
 
-void			burning_ship(t_mlx *mlx, int px, int py)
+void			burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 {
 	long double	xy_scaled[2];
 	int		iter;
@@ -201,7 +206,7 @@ void			burning_ship(t_mlx *mlx, int px, int py)
 	mlx->re2 = 1.0 * mlx->zoom;
 	mlx->im1 = -1.0*mlx->zoom;
 	mlx->im2 = 1.0*mlx->zoom;
-	xy_loop[0] = 0;
+	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
 	xy_loop[1] = 0;
 	double xtemp;
 	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->re1, mlx->re2});
