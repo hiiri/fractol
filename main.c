@@ -6,10 +6,9 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 20:59:07 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 21:08:53 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "fractol.h"
 
@@ -22,7 +21,8 @@ t_image			*initialize_image(t_mlx *mlx)
 	image->width = WINDOW_WIDTH;
 	image->height = WINDOW_HEIGHT;
 	image->img_ptr = mlx_new_image(mlx->init, image->width, image->height);
-	image->image = mlx_get_data_addr(image->img_ptr, &image->bpp, &image->size_line, &image->endian);
+	image->image = mlx_get_data_addr(image->img_ptr, &image->bpp, \
+									&image->size_line, &image->endian);
 	return (image);
 }
 
@@ -50,15 +50,21 @@ t_mlx			*initialize_mlx_struct(void)
 void			handle_error(int error)
 {
 	if (error == ERROR_ARGS)
-		write(1, "Usage: ./fractol [type]\nAvailable parameters: mandelbrot, julia, burning_ship\n", 78);
+	{
+		ft_putstr("Usage: ./fractol [type]\n");
+		ft_putstr("Available parameters: mandelbrot, julia, burning_ship\n");
+	}
 	else if (error == ERROR_MALLOC)
-		write(1, "Malloc error\n", 13);
+		ft_putstr("Malloc error\n");
 	else if (error == ERROR_READING_FILE)
-		write(1, "Couldn't read file\n", 19);
+		ft_putstr("Couldn't read file\n");
+	else if (error == ERROR_CREATING_THREAD)
+		ft_putstr("Error creating thread\n");
 	exit(0);
 }
 
-static int		check_arguments(char *arg) {
+static int		check_arguments(char *arg)
+{
 	if (ft_strcmp("mandelbrot", arg) == 0)
 		return (MANDELBROT);
 	if (ft_strcmp("julia", arg) == 0)
@@ -79,11 +85,12 @@ int				main(int argc, char **argv)
 			handle_error(ERROR_ARGS);
 		mlx->init = mlx_init();
 		mlx->image = initialize_image(mlx);
-		mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
-		mlx_hook(mlx->window, 2, (1L<<0), deal_key, mlx);
-		mlx_hook(mlx->window, 4, (1L<<2), mouse_event, mlx);
-		mlx_hook(mlx->window, 5, (1L<<3), mouse_release, mlx);
-		mlx_hook(mlx->window, 6, (1L<<6), mouse_move, mlx);
+		mlx->window = mlx_new_window(mlx->init, mlx->width, \
+									mlx->height, "Fractol");
+		mlx_hook(mlx->window, 2, (1L << 0), deal_key, mlx);
+		mlx_hook(mlx->window, 4, (1L << 2), mouse_event, mlx);
+		mlx_hook(mlx->window, 5, (1L << 3), mouse_release, mlx);
+		mlx_hook(mlx->window, 6, (1L << 6), mouse_move, mlx);
 		handle_drawing(mlx);
 		mlx_loop(mlx->init);
 	}

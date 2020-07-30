@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 20:57:27 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 21:07:44 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <math.h>
 # include <pthread.h>
-#include <stdio.h> //r
+
 /*
 ** Keys
 */
@@ -85,6 +85,7 @@
 # define ERROR_MALLOC 2
 # define ERROR_READING_FILE 3
 # define ERROR_FRACTAL_TYPE 4
+# define ERROR_CREATING_THREAD 5
 
 typedef struct s_image
 {
