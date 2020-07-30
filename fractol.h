@@ -6,10 +6,9 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 21:22:16 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 21:27:06 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
@@ -25,23 +24,23 @@
 */
 
 # ifdef __APPLE__
-# include "mlx.h"
-# define UP_ARROW 126
-# define DOWN_ARROW 125
-# define LEFT_ARROW 123
-# define RIGHT_ARROW 124
-# define Q 12
-# define W 13
-# define ESC 53
+#  include "mlx.h"
+#  define UP_ARROW 126
+#  define DOWN_ARROW 125
+#  define LEFT_ARROW 123
+#  define RIGHT_ARROW 124
+#  define Q 12
+#  define W 13
+#  define ESC 53
 # elif __linux__
-# include "../minilibx/mlx.h"
-# define UP_ARROW 65362
-# define DOWN_ARROW 65364
-# define LEFT_ARROW 65361
-# define RIGHT_ARROW 65363
-# define Q 113
-# define W 119
-# define ESC 65307
+#  include "../minilibx/mlx.h"
+#  define UP_ARROW 65362
+#  define DOWN_ARROW 65364
+#  define LEFT_ARROW 65361
+#  define RIGHT_ARROW 65363
+#  define Q 113
+#  define W 119
+#  define ESC 65307
 # endif
 
 /*
@@ -71,6 +70,7 @@
 # define MANDELBROT 1
 # define JULIA 2
 # define BURNING_SHIP 3
+
 /*
 ** Performance
 */
@@ -87,7 +87,7 @@
 # define ERROR_FRACTAL_TYPE 4
 # define ERROR_CREATING_THREAD 5
 
-typedef struct s_image
+typedef struct	s_image
 {
 	int			width;
 	int			height;
