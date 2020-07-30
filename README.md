@@ -11,8 +11,8 @@ Fractal rendering program
 To do | Done
 --- | ---
 Command line parameters | ✔️
-Multithreading | 
-More fractals | 
+Multithreading | ✔️
+More fractals | ✔️
 Color palettes | 
 Smooth color transitions | 
 
