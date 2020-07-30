@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 20:13:49 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 20:59:07 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ t_mlx			*initialize_mlx_struct(void)
 void			handle_error(int error)
 {
 	if (error == ERROR_ARGS)
-		write(1, "Usage: ./fractol [type]\nAvailable parameters: mandelbrot, julia\n", 64);
+		write(1, "Usage: ./fractol [type]\nAvailable parameters: mandelbrot, julia, burning_ship\n", 78);
 	else if (error == ERROR_MALLOC)
 		write(1, "Malloc error\n", 13);
 	else if (error == ERROR_READING_FILE)
 		write(1, "Couldn't read file\n", 19);
-	else if (error == ERROR_FRACTAL_TYPE)
-		write(1, "No such fractal type\n", 21);
 	exit(0);
 }
 
@@ -78,7 +76,7 @@ int				main(int argc, char **argv)
 	{
 		mlx = initialize_mlx_struct();
 		if ((mlx->fractal = check_arguments(argv[1])) == -1)
-			handle_error(ERROR_FRACTAL_TYPE);
+			handle_error(ERROR_ARGS);
 		mlx->init = mlx_init();
 		mlx->image = initialize_image(mlx);
 		mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
