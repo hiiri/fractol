@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 21:07:44 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 21:22:16 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,24 @@
 */
 
 # ifdef __APPLE__
-	# include "mlx.h"
-	# define UP_ARROW 126
-	# define DOWN_ARROW 125
-	# define LEFT_ARROW 123
-	# define RIGHT_ARROW 124
-	# define Q 12
-	# define W 13
-	# define ESC 53
+# include "mlx.h"
+# define UP_ARROW 126
+# define DOWN_ARROW 125
+# define LEFT_ARROW 123
+# define RIGHT_ARROW 124
+# define Q 12
+# define W 13
+# define ESC 53
 # elif __linux__
-	# include "../minilibx/mlx.h"
-	# define UP_ARROW 65362
-	# define DOWN_ARROW 65364
-	# define LEFT_ARROW 65361
-	# define RIGHT_ARROW 65363
-	# define Q 113
-	# define W 119
-	# define ESC 65307
-	# endif
+# include "../minilibx/mlx.h"
+# define UP_ARROW 65362
+# define DOWN_ARROW 65364
+# define LEFT_ARROW 65361
+# define RIGHT_ARROW 65363
+# define Q 113
+# define W 119
+# define ESC 65307
+# endif
 
 /*
 ** General
@@ -75,7 +75,7 @@
 ** Performance
 */
 
-# define JULIA_REDRAW_EVERY_MOUSE_MOVE_AMOUNT 1
+# define JULIA_REDRAW_MOVE_AMOUNT 10
 
 /*
 **	Error messages

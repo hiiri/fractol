@@ -6,10 +6,9 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 21:13:26 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 21:16:13 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "fractol.h"
 
@@ -31,7 +30,7 @@ static void		pixel_to_image(t_image *image, int x, int y, int color)
 static void			*draw_fractal_part(void *data)
 {
 	t_thread		*td;
-	t_mlx 			*mlx;
+	t_mlx			*mlx;
 	unsigned int	part_width;
 
 	td = data;
@@ -45,7 +44,6 @@ static void			*draw_fractal_part(void *data)
 		burning_ship(td, mlx, part_width, WINDOW_HEIGHT);
 	return (NULL);
 }
-
 
 void			handle_drawing(t_mlx *mlx)
 {
@@ -73,8 +71,6 @@ void			handle_drawing(t_mlx *mlx)
 	}
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
 }
-
-
 
 long double 	tmpscale(int n, long double old[2], long double new[2])
 {
@@ -136,15 +132,15 @@ void			julia(t_thread *td, t_mlx *mlx, int px, int py)
 void			mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 {
 	long double	xy_scaled[2];
-	int		iter;
-	int		xy_loop[2];
+	int			iter;
+	int			xy_loop[2];
 	long double	x;
 	long double	y;
 	long double	slope[2];
-	int color;
+	int 		color;
 	long double zy;
 	long double zx;
-	double xtemp;
+	double 		xtemp;
 
 	mlx->re1 = -2.5 * mlx->zoom;
 	mlx->re2 = 1.0 * mlx->zoom;
@@ -197,13 +193,13 @@ void			mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 void			burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 {
 	long double	xy_scaled[2];
-	int		iter;
-	int		xy_loop[2];
+	int			iter;
+	int			xy_loop[2];
 	long double	x;
 	long double	y;
 	long double	slope[2];
-	int color;
-	double xtemp;
+	int			color;
+	double		xtemp;
 	long double zy;
 	long double zx;
 
@@ -213,9 +209,10 @@ void			burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 	mlx->im2 = 1.0 * mlx->zoom;
 	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
 	xy_loop[1] = 0;
-	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->re1, mlx->re2});
-	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (long double[2]){mlx->im1, mlx->im2});
-
+	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, \
+					(long double[2]){mlx->re1, mlx->re2});
+	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, \
+					(long double[2]){mlx->im1, mlx->im2});
 	while (xy_loop[0] < px)
 	{
 		xy_loop[1] = 0;
