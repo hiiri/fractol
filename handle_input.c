@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_mouse.c                                     :+:      :+:    :+:   */
+/*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/21 17:59:50 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 16:17:21 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,10 @@ int				deal_key(int key, void *param)
 	 	mlx->offset[0] += KEYBOARD_OFFSET_AMOUNT;
 	else if (key == RIGHT_ARROW)
 	 	mlx->offset[0] -= KEYBOARD_OFFSET_AMOUNT;
-	else if (mlx->iter > 0 && key == Q)
-		mlx->iter -= 1;
+	else if (mlx->max_iter > 0 && key == Q)
+		mlx->max_iter -= 1;
 	else if (key == W)
-		mlx->iter += 1;
+		mlx->max_iter += 1;
 	handle_drawing(mlx);
 	return (0);
 }

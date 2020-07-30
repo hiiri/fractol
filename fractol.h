@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/21 18:26:35 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 16:41:04 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define DEFAULT_COLOR 0x0F000F
 # define INIT_OFFSET_X -700
 # define INIT_OFFSET_Y -320
-# define KEYBOARD_OFFSET_AMOUNT 10
+# define KEYBOARD_OFFSET_AMOUNT 50
 # define MAX_ITER 10
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 800
@@ -63,7 +63,7 @@
 
 # define MANDELBROT 1
 # define JULIA 2
-
+# define BURNING_SHIP 3
 /*
 ** Performance
 */
@@ -104,7 +104,7 @@ typedef struct	s_mlx
 	int			mouse_x;
 	int			mouse_y;
 	int			mouse_pressed;
-	int			iter;
+	int			max_iter;
 	long double	re1;
 	long double	re2;
 	long double	im1;
@@ -119,8 +119,9 @@ int				mouse_event(int button, int x, int y, void *param);
 int				mouse_release(int button, int x, int y, void *param);
 int				mouse_move(int x, int y, void *param);
 void			handle_error(int error);
-void			mandelbrot(t_mlx *mlx, int x, int y);
+void			mandelbrot(t_mlx *mlx, int px, int py);
 void			julia(t_mlx *mlx, int px, int py);
+void			burning_ship(t_mlx *mlx, int x, int y);
 void			handle_drawing(t_mlx *mlx);
 
 #endif

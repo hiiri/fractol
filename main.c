@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/21 18:26:31 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 17:04:43 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ t_image			*initialize_image(t_mlx *mlx)
 		handle_error(ERROR_MALLOC);
 	image->width = WINDOW_WIDTH;
 	image->height = WINDOW_HEIGHT;
-	image->bpp = 0;
-	image->endian = 0;
-	image->size_line = 0;
 	image->img_ptr = mlx_new_image(mlx->init, image->width, image->height);
 	image->image = mlx_get_data_addr(image->img_ptr, &image->bpp, &image->size_line, &image->endian);
 	return (image);
@@ -45,15 +42,16 @@ t_mlx			*initialize_mlx_struct(void)
 	mlx->zoom = INIT_ZOOM_SCALE;
 	mlx->offset[0] = INIT_OFFSET_X;
 	mlx->offset[1] = INIT_OFFSET_Y;
-	mlx->iter = MAX_ITER;
+	mlx->max_iter = MAX_ITER;
 	mlx->mouse_moves = 0;
+	printf("%d\n", mlx_get_color_value(mlx, 167641080));
 	return (mlx);
 }
 
 void			handle_error(int error)
 {
 	if (error == ERROR_ARGS)
-		write(1, "Argument count must be 1\n", 25);
+		write(1, "Usage: ./fractol [type]\nAvailable parameters: mandelbrot, julia\n", 64);
 	else if (error == ERROR_MALLOC)
 		write(1, "Malloc error\n", 13);
 	else if (error == ERROR_READING_FILE)
@@ -68,6 +66,8 @@ static int		check_arguments(char *arg) {
 		return (MANDELBROT);
 	if (ft_strcmp("julia", arg) == 0)
 		return (JULIA);
+	if (ft_strcmp("burning_ship", arg) == 0)
+		return (BURNING_SHIP);
 	return (-1);
 }
 
@@ -83,7 +83,6 @@ int				main(int argc, char **argv)
 		mlx->init = mlx_init();
 		mlx->image = initialize_image(mlx);
 		mlx->window = mlx_new_window(mlx->init, mlx->width, mlx->height, "Window");
-		//printf("%d\n", mlx->fractal);
 		mlx_hook(mlx->window, 2, (1L<<0), deal_key, mlx);
 		mlx_hook(mlx->window, 4, (1L<<2), mouse_event, mlx);
 		mlx_hook(mlx->window, 5, (1L<<3), mouse_release, mlx);
@@ -92,6 +91,6 @@ int				main(int argc, char **argv)
 		mlx_loop(mlx->init);
 	}
 	else
-		handle_error(1);
+		handle_error(ERROR_ARGS);
 	return (0);
 }

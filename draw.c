@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/21 18:12:46 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/30 18:32:11 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ long double		scale(int in_range[2], long double out_range[2])
 
 static void		pixel_to_image(t_image *image, int x, int y, int color)
 {
-	image->image[x * 4 + y * image->size_line] = color;
-	image->image[x * 4 + y * image->size_line + 1] = color;
-	image->image[x * 4 + y * image->size_line + 2] = color;
+	image->image[x * 4 + y * image->size_line] = color % 256;
+	image->image[x * 4 + y * image->size_line + 1] = color / 256 % 256;
+	image->image[x * 4 + y * image->size_line + 2] = color / 256 / 256 % 256;
 }
 
 void			handle_drawing(t_mlx *mlx)
@@ -34,6 +34,8 @@ void			handle_drawing(t_mlx *mlx)
 		mandelbrot(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	else if (mlx->fractal == JULIA)
 		julia(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	else if (mlx->fractal == BURNING_SHIP)
+		burning_ship(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
 }
 
@@ -75,14 +77,14 @@ void			julia(t_mlx *mlx, int px, int py)
 			cy = tmpscale(xy_loop[1], (long double[2]){0, WINDOW_HEIGHT},
 		(long double[2]){-1.0, 1.0});
 			iter = 0;
-			while (cx * cx + cy * cy < 4 && iter < mlx->iter)
+			while (cx * cx + cy * cy < 4 && iter < mlx->max_iter)
 			{
 				xtemp = cx * cx - cy * cy + creal;
 				cy = 2 * cx * cy + cimag;
 				cx = xtemp;
 				iter++;
 			}
-			if (iter == mlx->iter)
+			if (iter == mlx->max_iter)
 				color = 0;
 			else
 				color = iter * 0x0000C8;
@@ -104,7 +106,7 @@ void			mandelbrot(t_mlx *mlx, int px, int py)
 	long double	slope[2];
 	int color;
 
-	mlx->re1 = -2.0 * mlx->zoom;
+	mlx->re1 = -2.5 * mlx->zoom;
 	mlx->re2 = 1.0 * mlx->zoom;
 	mlx->im1 = -1.0*mlx->zoom;
 	mlx->im2 = 1.0*mlx->zoom;
@@ -136,7 +138,7 @@ void			mandelbrot(t_mlx *mlx, int px, int py)
 			zy = 0.0;
 			//int zx = slope[0] * xy_loop[0];
 			//int zy = slope[1] * xy_loop[1];
-			while (zx * zx + zy * zy <= 4 && iter < mlx->iter)
+			while (zx * zx + zy * zy <= 4 && iter < mlx->max_iter)
 			{
 				/*//xtemp = zx * zx - zy * zy + xy_scaled[0];
 				xtemp = zx * zx - zy * zy + creal + xy_scaled[0];
@@ -149,10 +151,61 @@ void			mandelbrot(t_mlx *mlx, int px, int py)
 
 				iter++;
 			}
-			if (iter == mlx->iter)
+			if (iter == mlx->max_iter)
 				color = 0;
 			else
-				color = iter * 0x0000C8;
+				color = 0xFF00FF;
+			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
+			xy_loop[1]++;
+		}
+		xy_loop[0]++;
+	}
+}
+
+void			burning_ship(t_mlx *mlx, int px, int py)
+{
+	long double	xy_scaled[2];
+	int		iter;
+	int		xy_loop[2];
+	long double	x;
+	long double	y;
+	long double	slope[2];
+	int color;
+
+	mlx->re1 = -2.0 * mlx->zoom;
+	mlx->re2 = 1.0 * mlx->zoom;
+	mlx->im1 = -1.0*mlx->zoom;
+	mlx->im2 = 1.0*mlx->zoom;
+	xy_loop[0] = 0;
+	xy_loop[1] = 0;
+	double xtemp;
+	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, (long double[2]){mlx->re1, mlx->re2});
+	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, (long double[2]){mlx->im1, mlx->im2});
+	long double zy;
+	long double zx;
+	while (xy_loop[0] < px)
+	{
+		xy_loop[1] = 0;
+		while (xy_loop[1] < py)
+		{
+			x = 0.0;
+			y = 0.0;
+			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]);
+			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]);
+			iter = 0;
+			zx = 0.0;
+			zy = 0.0;
+			while (zx * zx + zy * zy < 4 && iter < mlx->max_iter)
+			{
+				xtemp = zx * zx - zy * zy + xy_scaled[0];
+				zy=fabsl(2 * zx * zy + xy_scaled[1]);
+				zx=fabsl(xtemp);
+				iter++;
+			}
+			if (iter == mlx->max_iter)
+				color = 0;
+			else
+				color = 0xFDFFF8 * (iter / 2);
 			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}
@@ -160,6 +213,7 @@ void			mandelbrot(t_mlx *mlx, int px, int py)
 	}
 
 }
+
 /*
 void	old_mandelbrot(t_mlx *mlx, int px, int py)
 {
