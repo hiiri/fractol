@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/31 16:59:22 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/31 17:23:14 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int				mouse_release(int button, int x, int y, void *param)
 	mlx->mouse_pressed = 0;
 	return (0);
 }
-#include <stdio.h> //
+
 int				mouse_move(int x, int y, void *param)
 {
 	t_mlx	*mlx;
@@ -75,12 +75,10 @@ int				mouse_move(int x, int y, void *param)
 	}
 	mlx->mouse_x = x;
 	mlx->mouse_y = y;
-	if (mlx->fractal == JULIA && mlx->mouse_moves >= JULIA_REDRAW_MOVE_AMOUNT)
+	if (mlx->fractal == JULIA)
 	{
-		mlx->mouse_moves = 0;
 		handle_drawing(mlx);
 	}
-	mlx->mouse_moves++;
 	return (0);
 }
 
