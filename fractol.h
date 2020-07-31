@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/31 16:56:34 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/31 17:20:13 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 ** Multithreading
 */
 
-# define MAX_THREADS 4
+# define MAX_THREADS 12
 
 /*
 ** Fractals

@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/31 17:10:03 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/31 17:14:24 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void				mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 	long double	y2;
 	long double	w;
 
-	mlx->re1 = -2.5 * mlx->zoom;
+	mlx->re1 = -2.0 * mlx->zoom;
 	mlx->re2 = 1.0 * mlx->zoom;
 	mlx->im1 = -1.0 * mlx->zoom;
 	mlx->im2 = 1.0 * mlx->zoom;
