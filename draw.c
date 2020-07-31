@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/30 21:33:16 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/31 17:10:03 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,11 +137,9 @@ void				mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 	long double	y;
 	long double	slope[2];
 	int			color;
-	long double zy;
-	long double zx;
-	double		xtemp;
-	long double cx;
-	long double cy;
+	long		double x2;
+	long double	y2;
+	long double	w;
 
 	mlx->re1 = -2.5 * mlx->zoom;
 	mlx->re2 = 1.0 * mlx->zoom;
@@ -160,22 +158,19 @@ void				mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 		{
 			x = 0.0;
 			y = 0.0;
-			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]);
-			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]);
-			cx = tmpscale(xy_loop[0], \
-									(long double[2]){0, WINDOW_WIDTH},
-									(long double[2]){-2.0, 1.0});
-			cy = tmpscale(xy_loop[1], \
-									(long double[2]){0, WINDOW_HEIGHT},
-									(long double[2]){-1.0, 1.0});
+			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]) * mlx->zoom;
+			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]) * mlx->zoom;
+			x2 = 0.0;
+			y2 = 0.0;
+			w = 0.0;
 			iter = 0;
-			zx = 0.0;
-			zy = 0.0;
-			while (zx * zx + zy * zy <= 4 && iter < mlx->max_iter)
+			while (x2 + y2 <= 4 && iter < mlx->max_iter)
 			{
-				xtemp = zx * zy;
-				zx = zx * zx - zy * zy + cx + xy_scaled[0];
-				zy = 2 * xtemp + cy + xy_scaled[1];
+				x = (x2 - y2 + xy_scaled[0]);
+				y = (w - x2 - y2 + xy_scaled[1]);
+				x2 = x * x;
+				y2 = y * y;
+				w = (x + y) * (x + y);
 				iter++;
 			}
 			if (iter == mlx->max_iter)
