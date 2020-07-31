@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/31 17:23:35 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/31 18:53:11 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,11 @@ t_mlx			*initialize_mlx_struct(void)
 		handle_error(ERROR_MALLOC);
 	mlx->height = WINDOW_HEIGHT;
 	mlx->width = WINDOW_WIDTH;
-	mlx->fractal = MANDELBROT;
 	mlx->color = DEFAULT_COLOR;
 	mlx->mouse_x = 0;
 	mlx->mouse_y = 0;
 	mlx->mouse_pressed = 0;
 	mlx->zoom = INIT_ZOOM_SCALE;
-	mlx->offset[0] = INIT_OFFSET_X;
-	mlx->offset[1] = INIT_OFFSET_Y;
 	mlx->max_iter = MAX_ITER;
 	return (mlx);
 }
@@ -62,14 +59,26 @@ void			handle_error(int error)
 	exit(0);
 }
 
-static int		check_arguments(char *arg)
+static int		set_mlx_fractal(char *arg, t_mlx *mlx)
 {
 	if (ft_strcmp("mandelbrot", arg) == 0)
+	{
+		mlx->offset[0] = INIT_MANDELBROT_OFFSET_X;
+		mlx->offset[1] = INIT_MANDELBROT_OFFSET_Y;
 		return (MANDELBROT);
+	}
 	if (ft_strcmp("julia", arg) == 0)
+	{
+		mlx->offset[0] = INIT_JULIA_OFFSET_X;
+		mlx->offset[1] = INIT_JULIA_OFFSET_Y;
 		return (JULIA);
+	}
 	if (ft_strcmp("burning_ship", arg) == 0)
+	{
+		mlx->offset[0] = INIT_BURNING_SHIP_OFFSET_X;
+		mlx->offset[1] = INIT_BURNING_SHIP_OFFSET_Y;
 		return (BURNING_SHIP);
+	}
 	return (-1);
 }
 
@@ -80,7 +89,7 @@ int				main(int argc, char **argv)
 	if (argc == 2)
 	{
 		mlx = initialize_mlx_struct();
-		if ((mlx->fractal = check_arguments(argv[1])) == -1)
+		if ((mlx->fractal = set_mlx_fractal(argv[1], mlx)) == -1)
 			handle_error(ERROR_ARGS);
 		mlx->init = mlx_init();
 		mlx->image = initialize_image(mlx);

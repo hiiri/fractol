@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/31 17:23:24 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/31 18:52:04 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@
 */
 
 # define DEFAULT_COLOR 0x0F000F
-# define INIT_OFFSET_X -700
-# define INIT_OFFSET_Y -320
+# define INIT_MANDELBROT_OFFSET_X -700
+# define INIT_MANDELBROT_OFFSET_Y -320
+# define INIT_JULIA_OFFSET_X 0
+# define INIT_JULIA_OFFSET_Y 0
+# define INIT_BURNING_SHIP_OFFSET_X -700
+# define INIT_BURNING_SHIP_OFFSET_Y -320
 # define KEYBOARD_OFFSET_AMOUNT 50
 # define MAX_ITER 10
 # define WINDOW_WIDTH 1280

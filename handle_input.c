@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/31 17:23:14 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/07/31 19:33:12 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ int				mouse_move(int x, int y, void *param)
 	t_mlx	*mlx;
 
 	mlx = param;
-	if (mlx->mouse_pressed && (mlx->fractal == MANDELBROT || \
-								mlx->fractal == BURNING_SHIP))
+	if (mlx->mouse_pressed)
 	{
 		if (x != mlx->mouse_x)
 		{
