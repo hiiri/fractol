@@ -15,7 +15,6 @@ Multithreading | ✔️
 More fractals | ✔️
 Color palettes | 
 Smooth color transitions | 
-Julia also movable (mouse+kb)and zoomable |
 
 ##### Skills
 
