@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/31 19:33:12 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/03 15:56:57 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,16 @@
 int				mouse_event(int button, int x, int y, void *param)
 {
 	t_mlx	*mlx;
-	int		w;
-	int		h;
 
 	mlx = param;
-	if (button == 4)
+	if (button == 4 && mlx->zoom >= 0.01 + ZOOM_AMOUNT)
 	{
-		h = WINDOW_HEIGHT / 2 - y;
-		w = WINDOW_WIDTH / 2 - x;
 		mlx->zoom -= ZOOM_AMOUNT;
-		mlx->offset[0] += -w * 0.15;
-		mlx->offset[1] += -h * 0.15;
-		mlx->im1 *= 1.1;
-		mlx->im2 *= 1.1;
-		mlx->re1 *= 1.1;
-		mlx->re2 *= 1.1;
 	}
 	if (button == 5)
+	{
 		mlx->zoom += ZOOM_AMOUNT;
+	}
 	if (button == 1)
 	{
 		mlx->mouse_x = x;

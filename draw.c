@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/31 18:56:13 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/03 15:41:38 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,11 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 	long double	x;
 	long double	y;
 	int			color;
-	double		xtemp;
 	long double	new_re;
 	long double	new_im;
 	long double	creal;
 	long double	cimag;
 	long double	slope[2];
-	long double	xy_scaled[2];
 	long double	old_re;
 	long double	old_im;
 
@@ -106,6 +104,7 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 					(long double[2]){mlx->re1, mlx->re2});
 	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, \
 					(long double[2]){mlx->im1, mlx->im2});
+	printf("%f\n", pow(mlx->zoom, 0.5) / mlx->offset[0] * 0.001);
 	while (xy_loop[0] < px)
 	{
 		xy_loop[1] = 0;
@@ -114,12 +113,8 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 			x = 0.0;
 			y = 0.0;
 
-			new_re = 1.5 * (xy_loop[0] - WINDOW_WIDTH / 2) / (0.5 * mlx->zoom * WINDOW_WIDTH) + (mlx->offset[0] * 0.001);
-			new_im = (xy_loop[1] - WINDOW_HEIGHT / 2) / (0.5 * mlx->zoom * WINDOW_HEIGHT) + (mlx->offset[1] * 0.001);
-			//new_re = tmpscale(xy_loop[0], (long double[2]){0, WINDOW_WIDTH},
-		//(long double[2]){-2.0, 1.0});
-			//new_im = tmpscale(xy_loop[1], (long double[2]){0, WINDOW_HEIGHT},
-		//(long double[2]){-1.0, 1.0});
+			new_re = 1.5 * (xy_loop[0] - WINDOW_WIDTH / 2) / (0.5 * pow(mlx->zoom, 4) * WINDOW_WIDTH) + ((mlx->offset[0] * 0.001) / mlx->zoom);
+			new_im = (xy_loop[1] - WINDOW_HEIGHT / 2) / (0.5 * pow(mlx->zoom, 4) * WINDOW_HEIGHT) + ((mlx->offset[1] * 0.001) / mlx->zoom);
 			iter = 0;
 			while (new_re * new_re + new_im * new_im < 4 && iter < mlx->max_iter)
 			{
@@ -127,9 +122,6 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 				old_im = new_im;
 				new_re = old_re * old_re - old_im * old_im + creal;
 				new_im = 2 * old_re * old_im + cimag;
-				// xtemp = new_re * new_re - new_im * new_im + creal + xy_scaled[0];
-				// new_im = 2 * new_re * new_im + cimag + xy_scaled[1];
-				// new_re = xtemp;
 				iter++;
 			}
 			if (iter == mlx->max_iter)
