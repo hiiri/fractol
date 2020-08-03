@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:05 by alcohen           #+#    #+#             */
-/*   Updated: 2020/07/31 18:53:11 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/03 17:28:32 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_mlx			*initialize_mlx_struct(void)
 	mlx->mouse_pressed = 0;
 	mlx->zoom = INIT_ZOOM_SCALE;
 	mlx->max_iter = MAX_ITER;
+	mlx->gui_on = 1;
 	return (mlx);
 }
 

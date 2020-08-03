@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/03 15:26:02 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/03 18:54:43 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 #  define RIGHT_ARROW 124
 #  define Q 12
 #  define W 13
+#  define G 5
+#  define R 15
+#  define L 37
 #  define ESC 53
 # elif __linux__
 #  include "../minilibx/mlx.h"
@@ -56,10 +59,12 @@
 # define INIT_BURNING_SHIP_OFFSET_Y -320
 # define KEYBOARD_OFFSET_AMOUNT 50
 # define MAX_ITER 10
-# define WINDOW_WIDTH 1280
+# define WINDOW_WIDTH 1200
 # define WINDOW_HEIGHT 800
 # define ZOOM_AMOUNT 0.1
+# define MIN_ZOOM 0.1
 # define INIT_ZOOM_SCALE 1
+# define GUI_TEXT_COLOR 0xFFFFFF
 
 /*
 ** Multithreading
@@ -110,10 +115,14 @@ typedef struct	s_mlx
 	int			mouse_y;
 	int			mouse_pressed;
 	int			max_iter;
+	int			gui_on;
+	int			lock_mouse;
+	long double	julia_mouse_params[2];
 	long double	re1;
 	long double	re2;
 	long double	im1;
 	long double	im2;
+
 	t_image		*image;
 }				t_mlx;
 
@@ -135,5 +144,6 @@ void			mandelbrot(t_thread *td, t_mlx *mlx, int px, int py);
 void			julia(t_thread *td, t_mlx *mlx, int px, int py);
 void			burning_ship(t_thread *td, t_mlx *mlx, int x, int y);
 void			handle_drawing(t_mlx *mlx);
+void			draw_gui(t_mlx *mlx);
 
 #endif

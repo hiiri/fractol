@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/03 15:41:38 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/03 18:55:50 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void				handle_drawing(t_mlx *mlx)
 		i++;
 	}
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
+	if (mlx->gui_on)
+		draw_gui(mlx);
 }
 
 long double			tmpscale(int n, long double old[2], long double new[2])
@@ -90,21 +92,22 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 	int			color;
 	long double	new_re;
 	long double	new_im;
-	long double	creal;
-	long double	cimag;
 	long double	slope[2];
 	long double	old_re;
 	long double	old_im;
 
 	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
 	xy_loop[1] = 0;
-	creal = -0.8 + 0.6 * sin(mlx->mouse_x / (3.14 * 100));
-	cimag = 0.156 + 0.4 * cos(mlx->mouse_y / (3.14 * 20));
+
+	if (!mlx->lock_mouse)
+	{
+		mlx->julia_mouse_params[0] = -0.8 + 0.6 * sin(mlx->mouse_x / (3.14 * 100));
+		mlx->julia_mouse_params[1] = 0.156 + 0.4 * cos(mlx->mouse_y / (3.14 * 20));
+	}
 	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, \
 					(long double[2]){mlx->re1, mlx->re2});
 	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, \
 					(long double[2]){mlx->im1, mlx->im2});
-	printf("%f\n", pow(mlx->zoom, 0.5) / mlx->offset[0] * 0.001);
 	while (xy_loop[0] < px)
 	{
 		xy_loop[1] = 0;
@@ -120,8 +123,8 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 			{
 				old_re = new_re;
 				old_im = new_im;
-				new_re = old_re * old_re - old_im * old_im + creal;
-				new_im = 2 * old_re * old_im + cimag;
+				new_re = old_re * old_re - old_im * old_im + mlx->julia_mouse_params[0];
+				new_im = 2 * old_re * old_im + mlx->julia_mouse_params[1];
 				iter++;
 			}
 			if (iter == mlx->max_iter)
@@ -148,10 +151,11 @@ void				mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 	long double	y2;
 	long double	w;
 
-	mlx->re1 = -2.0 * mlx->zoom;
-	mlx->re2 = 1.0 * mlx->zoom;
-	mlx->im1 = -1.0 * mlx->zoom;
-	mlx->im2 = 1.0 * mlx->zoom;
+	mlx->re1 = -2.0 / pow(mlx->zoom, 4);
+	mlx->re2 = 1.0 / pow(mlx->zoom, 4);
+	mlx->im1 = -1.0 / pow(mlx->zoom, 4);
+	mlx->im2 = 1.0 / pow(mlx->zoom, 4);
+	printf("%Lf\n", mlx->im2);
 	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
 	xy_loop[1] = 0;
 	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, \
@@ -204,10 +208,10 @@ void				burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 	long double zy;
 	long double zx;
 
-	mlx->re1 = -2.0 * mlx->zoom;
-	mlx->re2 = 1.0 * mlx->zoom;
-	mlx->im1 = -1.0 * mlx->zoom;
-	mlx->im2 = 1.0 * mlx->zoom;
+	mlx->re1 = -2.0 / pow(mlx->zoom, 4);
+	mlx->re2 = 1.0 / pow(mlx->zoom, 4);
+	mlx->im1 = -1.0 / pow(mlx->zoom, 4);
+	mlx->im2 = 1.0 / pow(mlx->zoom, 44);
 	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
 	xy_loop[1] = 0;
 	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, \
