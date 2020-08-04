@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/03 18:55:50 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/04 16:17:08 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 			if (iter == mlx->max_iter)
 				color = 0;
 			else
-				color = iter * 0x0000C8;
+				color = palette(mlx, iter);
 			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}
@@ -155,7 +155,6 @@ void				mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 	mlx->re2 = 1.0 / pow(mlx->zoom, 4);
 	mlx->im1 = -1.0 / pow(mlx->zoom, 4);
 	mlx->im2 = 1.0 / pow(mlx->zoom, 4);
-	printf("%Lf\n", mlx->im2);
 	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
 	xy_loop[1] = 0;
 	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, \
@@ -211,7 +210,7 @@ void				burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 	mlx->re1 = -2.0 / pow(mlx->zoom, 4);
 	mlx->re2 = 1.0 / pow(mlx->zoom, 4);
 	mlx->im1 = -1.0 / pow(mlx->zoom, 4);
-	mlx->im2 = 1.0 / pow(mlx->zoom, 44);
+	mlx->im2 = 1.0 / pow(mlx->zoom, 4);
 	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
 	xy_loop[1] = 0;
 	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, \
@@ -240,7 +239,7 @@ void				burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 			if (iter == mlx->max_iter)
 				color = 0;
 			else
-				color = 0xFDFFF8 * (iter / 2);
+				color = palette(mlx, iter);
 			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}
