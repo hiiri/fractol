@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/04 16:10:29 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/04 18:31:24 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 #  define G 5
 #  define R 15
 #  define L 37
+#  define E 14
 #  define ESC 53
 # elif __linux__
 #  include "../minilibx/mlx.h"
@@ -65,6 +66,7 @@
 # define MIN_ZOOM 0.1
 # define INIT_ZOOM_SCALE 1
 # define GUI_TEXT_COLOR 0xFFFFFF
+# define PALETTE_COUNT 2
 
 /*
 ** Multithreading
@@ -122,7 +124,7 @@ typedef struct	s_mlx
 	long double	re2;
 	long double	im1;
 	long double	im2;
-
+	int			palette;
 	t_image		*image;
 }				t_mlx;
 
@@ -146,5 +148,6 @@ void			burning_ship(t_thread *td, t_mlx *mlx, int x, int y);
 void			handle_drawing(t_mlx *mlx);
 void			draw_gui(t_mlx *mlx);
 int				palette(t_mlx *mlx, int iter);
+void			reset_view(t_mlx *mlx);
 
 #endif

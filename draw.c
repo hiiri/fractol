@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/04 16:17:08 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/04 18:18:11 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,7 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 				new_im = 2 * old_re * old_im + mlx->julia_mouse_params[1];
 				iter++;
 			}
-			if (iter == mlx->max_iter)
-				color = 0;
-			else
-				color = palette(mlx, iter);
+			color = palette(mlx, iter);
 			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}
@@ -236,10 +233,7 @@ void				burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 				zx = fabsl(xtemp);
 				iter++;
 			}
-			if (iter == mlx->max_iter)
-				color = 0;
-			else
-				color = palette(mlx, iter);
+			color = palette(mlx, iter);
 			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}

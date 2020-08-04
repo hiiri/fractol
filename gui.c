@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:57:17 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/04 16:05:00 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/04 18:31:09 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void		draw_gui(t_mlx *mlx)
 	display_string(mlx, 20, 140, "G - toggle GUI");
 	display_string(mlx, 20, 160, "L - lock mouse (Julia)");
 	display_string(mlx, 20, 180, "R - reset view");
+	display_string(mlx, 20, 200, "E - change colors");
 }

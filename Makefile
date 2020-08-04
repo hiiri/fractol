@@ -6,7 +6,7 @@
 #    By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 20:45:50 by alcohen           #+#    #+#              #
-#    Updated: 2020/08/04 16:08:11 by alcohen          ###   ########.fr        #
+#    Updated: 2020/08/04 18:25:59 by alcohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ FLAGS = -Wall -Wextra -Werror
 NAME = fractol
 
 MAIN = main.c
-SRCS = $(MAIN) draw.c handle_input.c gui.c colors.c
+SRCS = $(MAIN) draw.c handle_input.c gui.c colors.c handle_keys.c
 OBJS=$(notdir $(SRCS:.c=.o))
 LIBFT = libft/libft.a
 MAKE_LIB=make -C libft/ fclean && make -C libft/
