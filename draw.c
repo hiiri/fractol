@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/05 15:59:02 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/05 18:34:06 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,8 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 		xy_loop[1] = 0;
 		while (xy_loop[1] < py)
 		{
-			x = 0.0;
-			y = 0.0;
-
-			new_re = 1.5 * (xy_loop[0] - WINDOW_WIDTH / 2) / (0.5 * pow(mlx->zoom, 4) * WINDOW_WIDTH) + ((mlx->offset[0] * 0.001) / mlx->zoom);
-			new_im = (xy_loop[1] - WINDOW_HEIGHT / 2) / (0.5 * pow(mlx->zoom, 4) * WINDOW_HEIGHT) + ((mlx->offset[1] * 0.001) / mlx->zoom);
+			new_re = 1.5 * (xy_loop[0] - WINDOW_WIDTH / 2) / (0.5 * pow(mlx->zoom, 3) * WINDOW_WIDTH) + ((mlx->offset[0] * 0.001) / mlx->zoom);
+			new_im = (xy_loop[1] - WINDOW_HEIGHT / 2) / (0.5 * pow(mlx->zoom, 3) * WINDOW_HEIGHT) + ((mlx->offset[1] * 0.001) / mlx->zoom);
 			iter = 0;
 			while (new_re * new_re + new_im * new_im < 4 && iter < mlx->max_iter)
 			{
