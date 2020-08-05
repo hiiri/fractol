@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/04 18:31:24 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/05 15:55:13 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void			julia(t_thread *td, t_mlx *mlx, int px, int py);
 void			burning_ship(t_thread *td, t_mlx *mlx, int x, int y);
 void			handle_drawing(t_mlx *mlx);
 void			draw_gui(t_mlx *mlx);
-int				palette(t_mlx *mlx, int iter);
+int				palette(t_mlx *mlx, int iter, int extra[4]);
 void			reset_view(t_mlx *mlx);
 
 #endif
