@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/05 18:46:21 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:58:47 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@
 # define MAX_ITER 10
 # define WINDOW_WIDTH 1200
 # define WINDOW_HEIGHT 800
-# define ZOOM_AMOUNT 0.01
-# define MIN_ZOOM 0.1
+# define ZOOM_AMOUNT 0.001
+# define MIN_ZOOM 0.001
 # define INIT_ZOOM_SCALE 1
 # define GUI_TEXT_COLOR 0xFFFFFF
 # define PALETTE_COUNT 2

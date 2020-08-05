@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/05 18:47:31 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/05 20:00:11 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ int				mouse_event(int button, int x, int y, void *param)
 	mlx = param;
 	if (button == 4 && mlx->zoom > MIN_ZOOM)
 	{
-		mlx->offset[0] += (WINDOW_WIDTH * 0.5 - x) ;
-		mlx->offset[1] += (WINDOW_HEIGHT * 0.5 - y);
-		printf("%f\n", (WINDOW_WIDTH * 0.5 - x));
-		mlx->zoom -= pow(ZOOM_AMOUNT, 0.5);
+		mlx->offset[0] += (int)(WINDOW_WIDTH * 0.5 - x);
+		mlx->offset[1] += (int)(WINDOW_HEIGHT * 0.5 - y);
+		mlx->zoom *= 1 / 1.1;
 	}
 	if (button == 5)
 	{
-		mlx->offset[0] -= (WINDOW_WIDTH * 0.5 - x) ;
-		mlx->offset[1] -= (WINDOW_HEIGHT * 0.5 - y);
-		mlx->zoom += pow(ZOOM_AMOUNT, 0.5);
+		mlx->offset[0] -= (int)(WINDOW_WIDTH * 0.5 - x);
+		mlx->offset[1] -= (int)(WINDOW_HEIGHT * 0.5 - y);
+		//mlx->zoom += pow(ZOOM_AMOUNT, 0.5);
+		mlx->zoom /= 1 / 1.1;
 	}
 	if (button == 1)
 	{
