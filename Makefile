@@ -6,7 +6,7 @@
 #    By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 20:45:50 by alcohen           #+#    #+#              #
-#    Updated: 2020/08/06 16:57:53 by alcohen          ###   ########.fr        #
+#    Updated: 2020/08/06 20:53:17 by alcohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ all: $(NAME)
 linux:
 	@$(MAKE_LIB)
 	gcc -c $(SRCS)
-	gcc $(OBJS) ../minilibx/libmlx_Linux.a -lm -lX11 -lXext -o $(NAME) $(LIBFT)
+	gcc $(FLAGS) $(OBJS) minilibx/libmlx_Linux.a -lm -lX11 -lXext -pthread -o $(NAME) $(LIBFT) 
 
 noflags:
 	@$(MAKE_LIB)
