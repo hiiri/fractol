@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/06 16:41:09 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 17:00:37 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,6 @@ void			handle_drawing(t_mlx *mlx);
 void			draw_gui(t_mlx *mlx);
 int				palette(t_mlx *mlx, int iter, int extra[3]);
 void			reset_view(t_mlx *mlx);
+void			pixel_to_image(t_image *image, int x, int y, int color);
 
 #endif

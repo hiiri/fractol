@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:57:17 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/04 18:31:09 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:46:22 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void		draw_gui(t_mlx *mlx)
 {
 	char	*str;
 
+	if (!mlx->gui_on)
+		return ;
 	display_string(mlx, 20, 0, "Zoom:");
 	str = ft_itoa(mlx->zoom * 10);
 	display_string(mlx, 140, 0, str);
