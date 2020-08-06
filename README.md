@@ -13,7 +13,7 @@ To do | Done
 Command line parameters | ✔️
 Multithreading | ✔️
 More fractals | ✔️
-Color palettes | 
+Color palettes | ✔️
 Smooth color transitions | 
 
 ##### Skills
