@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/05 20:00:11 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:23:29 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,18 @@
 int				mouse_event(int button, int x, int y, void *param)
 {
 	t_mlx	*mlx;
+	int		h;
+	int		w;
 
 	mlx = param;
+	h = WINDOW_HEIGHT;
+	w = WINDOW_WIDTH;
 	if (button == 4 && mlx->zoom > MIN_ZOOM)
 	{
-		mlx->offset[0] += (int)(WINDOW_WIDTH * 0.5 - x);
-		mlx->offset[1] += (int)(WINDOW_HEIGHT * 0.5 - y);
 		mlx->zoom *= 1 / 1.1;
 	}
 	if (button == 5)
 	{
-		mlx->offset[0] -= (int)(WINDOW_WIDTH * 0.5 - x);
-		mlx->offset[1] -= (int)(WINDOW_HEIGHT * 0.5 - y);
-		//mlx->zoom += pow(ZOOM_AMOUNT, 0.5);
 		mlx->zoom /= 1 / 1.1;
 	}
 	if (button == 1)
@@ -60,20 +59,14 @@ int				mouse_move(int x, int y, void *param)
 	if (mlx->mouse_pressed)
 	{
 		if (x != mlx->mouse_x)
-		{
 			mlx->offset[0] -= x - mlx->mouse_x;
-		}
 		if (y != mlx->mouse_y)
-		{
 			mlx->offset[1] -= y - mlx->mouse_y;
-		}
 		handle_drawing(mlx);
 	}
 	mlx->mouse_x = x;
 	mlx->mouse_y = y;
 	if (mlx->fractal == JULIA && !mlx->lock_mouse)
-	{
 		handle_drawing(mlx);
-	}
 	return (0);
 }

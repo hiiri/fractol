@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:04 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/04 18:31:45 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:32:07 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,12 @@ int				deal_key(int key, void *param)
 	mlx = param;
 	if (key == ESC)
 		exit(0);
-	if (key == UP_ARROW)
-		mlx->offset[1] += KEYBOARD_OFFSET_AMOUNT;
-	else if (key == DOWN_ARROW)
-		mlx->offset[1] -= KEYBOARD_OFFSET_AMOUNT;
-	else if (key == LEFT_ARROW)
-		mlx->offset[0] += KEYBOARD_OFFSET_AMOUNT;
-	else if (key == RIGHT_ARROW)
-		mlx->offset[0] -= KEYBOARD_OFFSET_AMOUNT;
+
+
+	if (key == UP_ARROW || key == DOWN_ARROW)
+		mlx->offset[1] += (key == UP_ARROW ? KB_OFFSET_AMOUNT : -KB_OFFSET_AMOUNT);
+	else if (key == LEFT_ARROW || key == RIGHT_ARROW)
+		mlx->offset[0] += (key == LEFT_ARROW ? KB_OFFSET_AMOUNT : -KB_OFFSET_AMOUNT);
 	else if (mlx->max_iter > 0 && key == Q)
 		mlx->max_iter -= 1;
 	else if (key == W)
