@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 16:59:10 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/06 17:24:08 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 17:30:43 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,21 @@ static int	color(t_mlx *mlx, int i, long double new[2], int xy[2])
 	return (palette(mlx, i, (int[3]){new[0], new[1], xy[0]}));
 }
 
+static void	julia_loop(t_mlx *mlx, long double new[2])
+{
+	long double	old_re;
+	long double	old_im;
+
+	old_re = new[0];
+	old_im = new[1];
+	new[0] = old_re * old_re - old_im * old_im + mlx->julia_mov[0];
+	new[1] = 2 * old_re * old_im + mlx->julia_mov[1];
+}
+
 void		julia(t_thread *td, t_mlx *mlx, int px, int py)
 {
 	int			i;
 	int			xy[2];
-	long double	old_re;
-	long double	old_im;
 	long double new[2];
 
 	xy[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
@@ -54,10 +63,7 @@ void		julia(t_thread *td, t_mlx *mlx, int px, int py)
 			i = 0;
 			while (new[0] * new[0] + new[1] * new[1] < 4 && i < mlx->max_iter)
 			{
-				old_re = new[0];
-				old_im = new[1];
-				new[0] = old_re * old_re - old_im * old_im + mlx->julia_mov[0];
-				new[1] = 2 * old_re * old_im + mlx->julia_mov[1];
+				julia_loop(mlx, new);
 				i++;
 			}
 			px_to_img(mlx->image, xy[0], xy[1], color(mlx, i, new, xy));
