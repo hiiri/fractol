@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/05 18:34:06 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:14:29 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 {
 	int			iter;
 	int			xy_loop[2];
-	long double	x;
-	long double	y;
 	int			color;
 	long double	new_re;
 	long double	new_im;
@@ -124,7 +122,7 @@ void				julia(t_thread *td, t_mlx *mlx, int px, int py)
 				new_im = 2 * old_re * old_im + mlx->julia_mouse_params[1];
 				iter++;
 			}
-			color = palette(mlx, iter, (int[4]){new_re, new_im, mlx->julia_mouse_params[0], mlx->julia_mouse_params[1]});
+			color = palette(mlx, iter, (int[3]){new_re, new_im, xy_loop[0]});
 			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}
@@ -177,10 +175,7 @@ void				mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 				w = (x + y) * (x + y);
 				iter++;
 			}
-			if (iter == mlx->max_iter)
-				color = 0;
-			else
-				color = 0xFFFFF0 * iter;
+			color = palette(mlx, iter, (int[3]){x, y, xy_loop[0]});
 			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}
@@ -193,8 +188,6 @@ void				burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 	long double	xy_scaled[2];
 	int			iter;
 	int			xy_loop[2];
-	long double	x;
-	long double	y;
 	long double	slope[2];
 	int			color;
 	double		xtemp;
@@ -216,8 +209,6 @@ void				burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 		xy_loop[1] = 0;
 		while (xy_loop[1] < py)
 		{
-			x = 0.0;
-			y = 0.0;
 			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]);
 			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]);
 			iter = 0;
@@ -230,7 +221,7 @@ void				burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 				zx = fabsl(xtemp);
 				iter++;
 			}
-			color = palette(mlx, iter, (int[4]){zx, zy, 0, 0});
+			color = palette(mlx, iter, (int[3]){zx, zy, xy_loop[0]});
 			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}

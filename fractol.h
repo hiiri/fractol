@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/05 19:58:47 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:12:11 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
 # define MIN_ZOOM 0.001
 # define INIT_ZOOM_SCALE 1
 # define GUI_TEXT_COLOR 0xFFFFFF
-# define PALETTE_COUNT 2
+# define PALETTE_COUNT 4
 
 /*
 ** Multithreading
@@ -147,7 +147,7 @@ void			julia(t_thread *td, t_mlx *mlx, int px, int py);
 void			burning_ship(t_thread *td, t_mlx *mlx, int x, int y);
 void			handle_drawing(t_mlx *mlx);
 void			draw_gui(t_mlx *mlx);
-int				palette(t_mlx *mlx, int iter, int extra[4]);
+int				palette(t_mlx *mlx, int iter, int extra[3]);
 void			reset_view(t_mlx *mlx);
 
 #endif
