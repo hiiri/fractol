@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/06 17:00:24 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 17:19:53 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ long double			scale(int in_range[2], long double out_range[2])
 	return (slope);
 }
 
-void				pixel_to_image(t_image *image, int x, int y, int color)
+void				px_to_img(t_image *image, int x, int y, int color)
 {
 	image->image[x * 4 + y * image->size_line] = color % 256;
 	image->image[x * 4 + y * image->size_line + 1] = color / 256 % 256;
@@ -125,7 +125,7 @@ void				mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 				iter++;
 			}
 			color = palette(mlx, iter, (int[3]){x, y, xy_loop[0]});
-			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
+			px_to_img(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}
 		xy_loop[0]++;
@@ -171,7 +171,7 @@ void				burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 				iter++;
 			}
 			color = palette(mlx, iter, (int[3]){zx, zy, xy_loop[0]});
-			pixel_to_image(mlx->image, xy_loop[0], xy_loop[1], color);
+			px_to_img(mlx->image, xy_loop[0], xy_loop[1], color);
 			xy_loop[1]++;
 		}
 		xy_loop[0]++;
