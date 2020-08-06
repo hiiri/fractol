@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:04 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/06 16:32:07 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:41:05 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void		change_palette(t_mlx *mlx)
 		mlx->palette++;
 }
 
-
 int				deal_key(int key, void *param)
 {
 	t_mlx	*mlx;
@@ -28,12 +27,10 @@ int				deal_key(int key, void *param)
 	mlx = param;
 	if (key == ESC)
 		exit(0);
-
-
 	if (key == UP_ARROW || key == DOWN_ARROW)
-		mlx->offset[1] += (key == UP_ARROW ? KB_OFFSET_AMOUNT : -KB_OFFSET_AMOUNT);
+		mlx->offset[1] += (key == UP_ARROW ? KB_OFFSET_AMT : -KB_OFFSET_AMT);
 	else if (key == LEFT_ARROW || key == RIGHT_ARROW)
-		mlx->offset[0] += (key == LEFT_ARROW ? KB_OFFSET_AMOUNT : -KB_OFFSET_AMOUNT);
+		mlx->offset[0] += (key == LEFT_ARROW ? KB_OFFSET_AMT : -KB_OFFSET_AMT);
 	else if (mlx->max_iter > 0 && key == Q)
 		mlx->max_iter -= 1;
 	else if (key == W)
@@ -50,7 +47,7 @@ int				deal_key(int key, void *param)
 	return (0);
 }
 
-void		reset_view(t_mlx *mlx)
+void			reset_view(t_mlx *mlx)
 {
 	mlx->color = DEFAULT_COLOR;
 	mlx->zoom = INIT_ZOOM_SCALE;
@@ -70,4 +67,3 @@ void		reset_view(t_mlx *mlx)
 		mlx->offset[1] = INIT_BURNING_SHIP_OFFSET_Y;
 	}
 }
-

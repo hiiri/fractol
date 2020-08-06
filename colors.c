@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 16:08:32 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/06 16:33:22 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:43:33 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	palette3(int max_iter, int iter, int extra[3])
 		b = (extra[2] % 10 + 100);
 		return (r * 256 * 256 + g * 256 + b);
 	}
-	r = (255) * ((extra[3] < WINDOW_WIDTH / 2) ? 1 : 0);
+	r = (255) * ((extra[2] < WINDOW_WIDTH / 2) ? 1 : 0);
 	g = iter < 255 ? ((iter * 3) % 255) : 255;
 	b = 100;
 	return (r * 256 * 256 + g * 256 + b);

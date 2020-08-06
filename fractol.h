@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/06 16:39:12 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:41:09 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define INIT_JULIA_OFFSET_Y 0
 # define INIT_BURNING_SHIP_OFFSET_X -800
 # define INIT_BURNING_SHIP_OFFSET_Y -500
-# define KB_OFFSET_AMOUNT 50
+# define KB_OFFSET_AMT 50
 # define MAX_ITER 10
 # define WINDOW_WIDTH 1200
 # define WINDOW_HEIGHT 800
