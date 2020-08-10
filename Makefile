@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+         #
+#    By: sadawi <sadawi@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 20:45:50 by alcohen           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2020/08/10 16:51:35 by alcohen          ###   ########.fr        #
-=======
-#    Updated: 2020/08/06 20:53:17 by alcohen          ###   ########.fr        #
->>>>>>> 96008bebdd473493a0f1529bfba70182e9b02855
+#    Updated: 2020/08/10 17:12:55 by sadawi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +26,7 @@ all: $(NAME)
 linux:
 	@$(MAKE_LIB)
 	gcc -c $(SRCS)
-	gcc $(FLAGS) $(OBJS) minilibx/libmlx_Linux.a -lm -lX11 -lXext -pthread -o $(NAME) $(LIBFT) 
+	gcc $(FLAGS) $(OBJS) minilibx/libmlx_Linux.a -lm -lX11 -lXext -pthread -o $(NAME) $(LIBFT)
 
 noflags:
 	@$(MAKE_LIB)
