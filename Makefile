@@ -6,11 +6,11 @@
 #    By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 20:45:50 by alcohen           #+#    #+#              #
-#    Updated: 2020/08/06 16:57:53 by alcohen          ###   ########.fr        #
+#    Updated: 2020/08/10 16:51:35 by alcohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -O3
 NAME = fractol
 
 MAIN = main.c
