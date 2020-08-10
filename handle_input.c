@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/10 19:33:02 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/10 19:36:35 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ int				mouse_event(int button, int x, int y, void *param)
 		mlx->mouse_x = x;
 		mlx->mouse_y = y;
 		mlx->mouse_pressed = 1;
-	}
-	if (button == 2)
-	{
-		mlx->zoom /= 1.3;
-		mlx->offset[0] = (mlx->offset[0] + (x - WINDOW_WIDTH / 2)) * 1.3 + 160;
-		mlx->offset[1] = (mlx->offset[1] + (y - WINDOW_HEIGHT / 2)) * 1.3 + 160;
 	}
 	handle_drawing(mlx);
 	return (0);
