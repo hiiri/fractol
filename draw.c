@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/06 17:19:53 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/10 19:17:05 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,6 @@ void				handle_drawing(t_mlx *mlx)
 	draw_gui(mlx);
 }
 
-long double			tmpscale(int n, long double old[2], long double new[2])
-{
-	long double result;
-
-	result = (new[1] - new[0]) * (n - old[0]) / (old[1] - old[0]) + new[0];
-	return (result);
-}
-
 void				mandelbrot(t_thread *td, t_mlx *mlx, int px, int py)
 {
 	long double	xy_scaled[2];
@@ -143,10 +135,10 @@ void				burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
 	long double zy;
 	long double zx;
 
-	mlx->re1 = -2.0 / pow(mlx->zoom, 4);
-	mlx->re2 = 1.0 / pow(mlx->zoom, 4);
-	mlx->im1 = -1.0 / pow(mlx->zoom, 4);
-	mlx->im2 = 1.0 / pow(mlx->zoom, 4);
+	mlx->re1 = -2.0 * mlx->zoom;
+	mlx->re2 = 1.0 * mlx->zoom;
+	mlx->im1 = -1.0 * mlx->zoom;
+	mlx->im2 = 1.0 * mlx->zoom;
 	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
 	xy_loop[1] = 0;
 	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, \

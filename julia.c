@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 16:59:10 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/06 17:30:43 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/10 19:02:29 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ static void	calculate_julia_mouse_params(t_mlx *mlx)
 static void	calculate_julia_numbers(t_mlx *mlx, int xy[2], long double new[2])
 {
 	new[0] = 1.5 * (xy[0] - WINDOW_WIDTH / 2) /
-		(0.5 * pow(mlx->zoom, 3) * WINDOW_WIDTH) +
-		((mlx->offset[0] * 0.001) / mlx->zoom);
+		(0.5 * WINDOW_WIDTH) +
+		((mlx->offset[0] * 0.001));
 	new[1] = (xy[1] - WINDOW_HEIGHT / 2) /
-			(0.5 * pow(mlx->zoom, 3) * WINDOW_HEIGHT) +
-			((mlx->offset[1] * 0.001) / mlx->zoom);
+			(0.5 * WINDOW_HEIGHT) +
+			((mlx->offset[1] * 0.001));
+	new[0] *= mlx->zoom;
+	new[1] *= mlx->zoom;
 }
 
 static int	color(t_mlx *mlx, int i, long double new[2], int xy[2])

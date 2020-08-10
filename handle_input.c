@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sadawi <sadawi@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/10 18:13:33 by sadawi           ###   ########.fr       */
+/*   Updated: 2020/08/10 19:33:02 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void			handle_zoom(t_mlx *mlx, int button, int x, int y)
 {
-	if (button == 4)
+	if (button == 4 && mlx->zoom > MAX_ZOOM)
 	{
 		mlx->zoom /= 1.1;
 		mlx->offset[0] = (mlx->offset[0] +
@@ -22,7 +22,7 @@ void			handle_zoom(t_mlx *mlx, int button, int x, int y)
 		mlx->offset[1] = (mlx->offset[1] +
 			(y - WINDOW_HEIGHT / 2) * 0.25) * 1.1 + 40;
 	}
-	if (button == 5)
+	if (button == 5 && mlx->zoom < MIN_ZOOM)
 	{
 		mlx->zoom *= 1.1;
 		mlx->offset[0] = (mlx->offset[0] +
