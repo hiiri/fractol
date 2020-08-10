@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:35:09 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/06 17:19:53 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/06 20:51:16 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,17 @@
 #  define E 14
 #  define ESC 53
 # elif __linux__
-#  include "../minilibx/mlx.h"
+#  include "minilibx/mlx.h"
 #  define UP_ARROW 65362
 #  define DOWN_ARROW 65364
 #  define LEFT_ARROW 65361
 #  define RIGHT_ARROW 65363
 #  define Q 113
 #  define W 119
+#  define G 103
+#  define R 114
+#  define L 108
+#  define E 101
 #  define ESC 65307
 # endif
 

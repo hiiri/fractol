@@ -6,7 +6,11 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/08/10 16:55:17 by alcohen          ###   ########.fr       */
+=======
+/*   Updated: 2020/08/06 20:51:50 by alcohen          ###   ########.fr       */
+>>>>>>> 96008bebdd473493a0f1529bfba70182e9b02855
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +19,8 @@
 int				mouse_event(int button, int x, int y, void *param)
 {
 	t_mlx	*mlx;
-	int		h;
-	int		w;
 
 	mlx = param;
-	h = WINDOW_HEIGHT;
-	w = WINDOW_WIDTH;
 	if (button == 4 && mlx->zoom > MIN_ZOOM)
 	{
 		mlx->zoom /= 1.1;
