@@ -6,25 +6,39 @@
 /*   By: sadawi <sadawi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 16:03:34 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/10 17:34:53 by sadawi           ###   ########.fr       */
+/*   Updated: 2020/08/10 18:13:33 by sadawi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void			handle_zoom(t_mlx *mlx, int button, int x, int y)
+{
+	if (button == 4)
+	{
+		mlx->zoom /= 1.1;
+		mlx->offset[0] = (mlx->offset[0] +
+			(x - WINDOW_WIDTH / 2) * 0.25) * 1.1 + 60;
+		mlx->offset[1] = (mlx->offset[1] +
+			(y - WINDOW_HEIGHT / 2) * 0.25) * 1.1 + 40;
+	}
+	if (button == 5)
+	{
+		mlx->zoom *= 1.1;
+		mlx->offset[0] = (mlx->offset[0] +
+			(x - WINDOW_WIDTH / 2) * 0.25) / 1.1 - 60;
+		mlx->offset[1] = (mlx->offset[1] +
+			(y - WINDOW_HEIGHT / 2) * 0.25) / 1.1 - 40;
+	}
+}
 
 int				mouse_event(int button, int x, int y, void *param)
 {
 	t_mlx	*mlx;
 
 	mlx = param;
-	if (button == 4 && mlx->zoom > MIN_ZOOM)
-	{
-		mlx->zoom /= 1.1;
-	}
-	if (button == 5)
-	{
-		mlx->zoom *= 1.1;
-	}
+	if (button == 4 || button == 5)
+		handle_zoom(mlx, button, x, y);
 	if (button == 1)
 	{
 		mlx->mouse_x = x;
