@@ -6,7 +6,7 @@
 /*   By: alcohen <alcohen@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:34:51 by alcohen           #+#    #+#             */
-/*   Updated: 2020/08/11 16:35:41 by alcohen          ###   ########.fr       */
+/*   Updated: 2020/08/11 17:20:54 by alcohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,50 +72,4 @@ void				handle_drawing(t_mlx *mlx)
 	}
 	mlx_put_image_to_window(mlx->init, mlx->window, mlx->image->img_ptr, 0, 0);
 	draw_gui(mlx);
-}
-
-void				burning_ship(t_thread *td, t_mlx *mlx, int px, int py)
-{
-	long double	xy_scaled[2];
-	int			iter;
-	int			xy_loop[2];
-	long double	slope[2];
-	int			color;
-	double		xtemp;
-	long double zy;
-	long double zx;
-
-	mlx->re1 = -2.0 * mlx->zoom;
-	mlx->re2 = 1.0 * mlx->zoom;
-	mlx->im1 = -1.0 * mlx->zoom;
-	mlx->im2 = 1.0 * mlx->zoom;
-	xy_loop[0] = WINDOW_WIDTH / MAX_THREADS * td->num;
-	xy_loop[1] = 0;
-	slope[0] = scale((int[2]){0, WINDOW_WIDTH}, \
-					(long double[2]){mlx->re1, mlx->re2});
-	slope[1] = scale((int[2]){0, WINDOW_HEIGHT}, \
-					(long double[2]){mlx->im1, mlx->im2});
-	while (xy_loop[0] < px)
-	{
-		xy_loop[1] = 0;
-		while (xy_loop[1] < py)
-		{
-			xy_scaled[0] = slope[0] * (xy_loop[0] + mlx->offset[0]);
-			xy_scaled[1] = slope[1] * (xy_loop[1] + mlx->offset[1]);
-			iter = 0;
-			zx = 0.0;
-			zy = 0.0;
-			while (zx * zx + zy * zy < 4 && iter < mlx->max_iter)
-			{
-				xtemp = zx * zx - zy * zy + xy_scaled[0];
-				zy = fabsl(2 * zx * zy + xy_scaled[1]);
-				zx = fabsl(xtemp);
-				iter++;
-			}
-			color = palette(mlx, iter, (int[3]){zx, zy, xy_loop[0]});
-			px_to_img(mlx->image, xy_loop[0], xy_loop[1], color);
-			xy_loop[1]++;
-		}
-		xy_loop[0]++;
-	}
 }
