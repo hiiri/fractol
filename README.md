@@ -2,9 +2,9 @@
 
 Multithreaded fractal rendering program
 
-![Demo gif](https://media.giphy.com/media/kHIV6DtjTSU4de0Msw/giphy.gif)
-![Demo gif](https://media.giphy.com/media/QYjUiWYDi9F4gHxGw3/giphy.gif)
-![Demo gif](https://media.giphy.com/media/QBeakdvXqWBxO2UNyU/giphy.gif)
+![Demo gif](gifs/fractol.gif)
+![Demo gif](gifs/fractol2.gif)
+![Demo gif](gifs/fractol3.gif)
 
 ### Features
 
